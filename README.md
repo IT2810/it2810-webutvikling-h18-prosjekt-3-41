@@ -1,4 +1,4 @@
-###Navigation
+### Navigation
 Mobile apps are rarely made up of a single screen. Snusbrother is no
 exception. To manage the presentation of, and transition between,
 multiple screens we have used React Navigation which is a standard
@@ -25,7 +25,7 @@ export default createBottomTabNavigator ({
 
 Documentation: https://reactnavigation.org/
 
-###Calendar
+### Calendar
 For the CalenderScreen we choose to use React Native Calendars 
 which is an easy to use module that includes various customizable react 
 native calendar components. Snusbrothers are suppose to see
