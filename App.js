@@ -1,22 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createBottomTabNavigator  } from 'react-navigation';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Hello Group</Text>
-      </View>
-    );
-  }
-}
+// Import the different Screens for the TabNavigator
+import MapScreen from "./screens/MapScreen";
+import CalenderScreen from "./screens/CalenderScreen";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+// Icons for TabNavigation bar
+import { Ionicons } from '@expo/vector-icons';
+
+export default createBottomTabNavigator ({
+    // Here we add the different screens
+    Map: {
+        screen: MapScreen
+    },
+    Calendar: {
+        screen: CalenderScreen
+    }
+},
+
+// Settings for TabNavigator
+{
+    initialRouteName: 'Map',
+    navigationOptions: ({ navigation }) => ({
+        // Set icons for tabs, maybe we can use some of the inputs as well..
+        tabBarIcon: ({ focused, horizontal, tintColor }) => {
+            const { routeName } = navigation.state;
+            let iconName;
+            // Here you set the icons for the tab at the bottom
+            switch (routeName) {
+                case "Map" : iconName = `md-map`; break;
+                case "Calendar" : iconName = `md-calendar`;
+            }
+            return <Ionicons name={iconName} size={32} color="black" />;
+        }
+    }),
+    // Currently the way we see which Tab is selected in the bar
+    tabBarOptions: {
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+    }
+
 });
