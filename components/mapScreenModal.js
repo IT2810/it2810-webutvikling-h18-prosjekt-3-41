@@ -18,14 +18,17 @@ class MapScreenModal extends Component {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  height: 300,
-                backgroundColor: 'lightgrey'}}
+                  height: 250,
+                  backgroundColor: 'white',
+                  borderTopLeftRadius: 5,
+                  borderTopRightRadius: 5,
+                  opacity: 0.95}}
 
                 >
             <TouchableHighlight
               onPress={() => this.props.handleClose()}
               >
-              <Text>close</Text>
+              <Text> close</Text>
             </TouchableHighlight>
           </View>
     );
