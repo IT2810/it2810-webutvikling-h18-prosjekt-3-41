@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Text, View } from 'react-native';
+import { Text, View , Button} from 'react-native';
 import {Ionicons} from "@expo/vector-icons";
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import { createStackNavigator  } from 'react-navigation';
 
 
 export default class CalenderScreen extends Component {
@@ -14,24 +15,30 @@ export default class CalenderScreen extends Component {
         super(props);
 
         this.state  = {
-            markedDates : {}
+            selectedDate : {}
         }
     }
 
     selectDay(day){
         let res = {};
         res[day.dateString] = {selected: true, selectedColor: 'lightblue'};
-        this.setState({markedDates : res})
+        this.setState({selectedDate : res});
+        // Then open Agenda and send current data state
+        this.props.navigation.navigate('Agenda', {
+            selectedDate: day
+        });
     }
 
-
     render() {
+        // State from the navigation
         const { navigate } = this.props.navigation;
+
+
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Calendar
                     // When pressing a date it turns lightblue
-                    markedDates={this.state.markedDates}
+                    markedDates={this.state.selectedDate}
                     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
                     minDate={'2016-05-10'}
                     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
@@ -41,7 +48,7 @@ export default class CalenderScreen extends Component {
                     // Handler which gets executed on day long press. Default = undefined
                     onDayLongPress={(day) => {console.log('selected day', day)}}
                     // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-                    monthFormat={'dd MM yyyy'}
+                    monthFormat={'MMMM yyyy'}
                     // Handler which gets executed when visible month changes in calendar. Default = undefined
                     onMonthChange={(month) => {console.log('month changed', month)}}
                     // Replace default arrows with custom ones (direction can be 'left' or 'right')
@@ -75,7 +82,7 @@ export default class CalenderScreen extends Component {
                         dotColor: '#00adf5',
                         selectedDotColor: '#ffffff',
                         arrowColor: 'orange',
-                        monthTextColor: 'blue',
+                        monthTextColor: 'black',
                         textMonthFontWeight: 'bold',
                         textDayFontSize: 16,
                         textMonthFontSize: 16,

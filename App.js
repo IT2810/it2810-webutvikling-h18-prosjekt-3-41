@@ -7,6 +7,7 @@ import CalenderScreen from "./screens/CalenderScreen";
 
 // Icons for TabNavigation bar
 import { Ionicons } from '@expo/vector-icons';
+import CalendarNav from "./screens/CalendarNav";
 
 export default createBottomTabNavigator ({
     // Here we add the different screens
@@ -14,7 +15,7 @@ export default createBottomTabNavigator ({
         screen: MapScreen
     },
     Calendar: {
-        screen: CalenderScreen
+        screen: CalendarNav
     }
 },
 
