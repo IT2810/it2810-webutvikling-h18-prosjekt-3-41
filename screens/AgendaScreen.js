@@ -21,12 +21,13 @@ export default class AgendaScreen extends Component {
     }
 
     render() {
-        // Get the data CalenderScreen sends through navigation
+        // Get the data CalendarScreen sends through navigation
         const { navigation } = this.props;
         const markedDate = navigation.getParam('selectedDate', '2018-01-01');
 
         return (
             <Agenda
+                firstDay={1}
                 items={this.state.items}
                 loadItemsForMonth={this.loadItems.bind(this)}
                 selected={markedDate}
