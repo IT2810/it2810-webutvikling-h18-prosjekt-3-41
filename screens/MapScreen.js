@@ -89,6 +89,9 @@ export default class MapScreen extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <View style={styles.headerView}>
+                <Text style={styles.headerText}>SNUSBROTHERS</Text>
+              </View>
               <MapView style={styles.map}
 
                         initialRegion={{
@@ -123,4 +126,19 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  headerView: {
+        position: 'absolute',
+        top:0,
+        left:0,
+        right:0,
+        zIndex: 3,
+        paddingTop: 30,
+        paddingBottom: 10,
+        backgroundColor: "#95abaf"
+    },
+    headerText: {
+        textAlign: 'center',
+        fontSize: 30,
+        color: "#fdfcaa"
+    }
 });
