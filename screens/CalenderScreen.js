@@ -10,19 +10,34 @@ export default class CalenderScreen extends Component {
         title: 'Calender',
     };
 
+    constructor(props) {
+        super(props);
+
+        this.state  = {
+            markedDates : {}
+        }
+    }
+
+    selectDay(day){
+        let res = {};
+        res[day.dateString] = {selected: true, selectedColor: 'lightblue'};
+        this.setState({markedDates : res})
+    }
+
+
     render() {
         const { navigate } = this.props.navigation;
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Calendar
-                    // Initially visible month. Default = Date()
-                    current={new Date()}
+                    // When pressing a date it turns lightblue
+                    markedDates={this.state.markedDates}
                     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
                     minDate={'2016-05-10'}
                     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
                     maxDate={'2020-05-30'}
                     // Handler which gets executed on day press. Default = undefined
-                    onDayPress={(day) => {console.log('selected day', day)}}
+                    onDayPress={(day) => this.selectDay(day)}
                     // Handler which gets executed on day long press. Default = undefined
                     onDayLongPress={(day) => {console.log('selected day', day)}}
                     // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
