@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MapView from 'react-native-maps';
+import MapScreenModal from '../components/mapScreenModal.js'
 
 export default class MapScreen extends Component {
 
@@ -12,7 +13,7 @@ export default class MapScreen extends Component {
     constructor(props) {
       super(props);
       this.state = {
-
+        modalVisible: true,
       };
       }
 
@@ -22,6 +23,26 @@ export default class MapScreen extends Component {
     });
     }
 
+    setModalVisible(visible) {
+      this.setState({modalVisible: visible});
+    }
+
+    closeModal(){
+      this.setState({modalVisible: false});
+    }
+
+    getMapModal(){
+      if (this.state.modalVisible){
+        return(
+          <View style={styles.modal}>
+            <MapScreenModal handleClose={this.closeModal.bind(this)} />
+          </View>
+        );
+      }else{
+        return(null);
+      }
+
+    }
 
     render() {
         const { navigate } = this.props.navigation;
@@ -37,7 +58,9 @@ export default class MapScreen extends Component {
                         region ={this.state.region}
                         onRegionChangeComplete={this.onRegionChange.bind(this)}
                         rotateEnabled={false}
-                />
+              >
+              </MapView>
+              {this.getMapModal()}
             </View>
         );
     }
@@ -47,6 +70,12 @@ const styles = StyleSheet.create({
   map: {
     position: 'absolute',
     top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  modal: {
+    position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
