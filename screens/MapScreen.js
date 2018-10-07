@@ -3,13 +3,16 @@ import { Text, View, StyleSheet, ActivityIndicator, TextInput } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import _ from 'lodash';
+import MapScreenModal from '../components/mapScreenModal.js';
+
+
+
 
 export default class MapScreen extends Component {
 
     static navigationOptions = {
         title: 'Map',
     };
-
     constructor(props) {
       super(props);
       this.state = {
@@ -49,8 +52,9 @@ export default class MapScreen extends Component {
           },
           searchterm: ''
       }
+        modalVisible: false
+      };
     }
-
 
     onRegionChange(region) {
         this.setState({
@@ -65,7 +69,12 @@ export default class MapScreen extends Component {
                 return(
                     <Marker key={id.name}
                             coordinate={id.latlng}
-                            title={id.name}/>
+                            title={id.name}
+                            onSelect={this.openModal.bind(this)}
+                            onDeselect={this.closeModal.bind(this)}
+                            onPress={e => this.setState({
+                              region: e.nativeEvent.coordinate
+                    })}/>
                 )
             }
         });
@@ -111,15 +120,41 @@ export default class MapScreen extends Component {
             error => (console.log(error)));
     }
 
+    openModal(){
+      this.setState({modalVisible: true});
+    }
 
+    closeModal(){
+      this.setState({modalVisible: false});
+    }
 
+    onMarkerPress(coord){
+      console.log(coord)
+    }
 
+    getMapModal(){
+      if (this.state.modalVisible){
+        return(
+          <View style={styles.modal}>
+            <MapScreenModal handleClose={this.closeModal.bind(this)} />
+          </View>
+        );
+      }else{
+        return(null);
+      }
+
+    }
 
     render() {
         const { navigfates } = this.props.navigation;
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 {this.renderMap()}
+              <View style={styles.headerView}>
+                <Text style={styles.headerText}>SNUSBROTHERS</Text>
+              </View>
+              {this.renderMap()}
+              {this.getMapModal()}
             </View>
         );
     }
@@ -134,6 +169,27 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  modal: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  headerView: {
+        position: 'absolute',
+        top:0,
+        left:0,
+        right:0,
+        zIndex: 3,
+        paddingTop: 30,
+        paddingBottom: 10,
+        backgroundColor: "#95abaf"
+    },
+    headerText: {
+        textAlign: 'center',
+        fontSize: 30,
+        color: "#fdfcaa"
+    }
 });
 
 
