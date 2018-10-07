@@ -62,9 +62,6 @@ class MapScreenModal extends Component {
             <View style={{backgroundColor: '#fdfcaa', borderRadius:4, width:150, alignSelf: 'center', marginBottom:5}}>
               <Button title='BOM SNUS' color='#95abaf' onPress={this.handleBomSnus.bind(this)}/>
             </View>
-
-
-
           </View>
     );
   }
@@ -81,6 +78,7 @@ const styles = StyleSheet.create({
     opacity: 0.95
   },
 });
+
 
 
 export default MapScreenModal
