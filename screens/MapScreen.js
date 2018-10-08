@@ -54,9 +54,10 @@ export default class MapScreen extends Component {
               latitude: null,
               longitude: null
           },
-          searchterm: ''
+          searchterm: '',
+          modalOpen: false
       }
-      };
+    };
 
 
     onRegionChange(region) {
@@ -64,8 +65,6 @@ export default class MapScreen extends Component {
           region
         });
     }
-
-
 
     renderMarkers() {
       if(Platform.OS === 'ios'){
@@ -93,9 +92,11 @@ export default class MapScreen extends Component {
                               coordinate={id.latlng}
                               title={id.name}
                               image={require('../assets/customMarker.png')}
-                              onDeselect={this.closeModal.bind(this)}
-                              onSelect={e => this.openModal(e.nativeEvent.coordinate)}
-                              onPress={(e) => console.log(e.nativeEvent.id)}
+                              onPress={(e) => {
+
+                                  this.openModal(e.nativeEvent.coordinate)
+                                }
+                              }
                       />
                   )
               }
@@ -111,15 +112,16 @@ export default class MapScreen extends Component {
         }
         else {
             return(
-                <MapView style={styles.map}
+                <MapView
+                        style={styles.map}
                         ref={(ref) => { this.mapRef = ref }}
                         initialRegion={{
                              latitude: this.state.myposition.latitude,
                              longitude: this.state.myposition.longitude,
                              latitudeDelta: 0.0922,
                              longitudeDelta: 0.0421,
-                         }}
-                        region ={this.state.region}
+                        }}
+                        region={this.state.region}
                         onRegionChangeComplete={this.onRegionChange.bind(this)}
                         rotateEnabled={false}>
                     {this.renderMarkers()}
@@ -147,13 +149,16 @@ export default class MapScreen extends Component {
     openModal(coord){
       this.mapRef.animateToCoordinate(coord);
       setTimeout(() => {
-        this.setState({region: coord});
+        this.setState({
+            region: coord,
+
+        });
       }, 700);
       Animated.parallel([
         Animated.timing(
           this.state.heightAnimation,
           {
-              toValue: 300,
+              toValue: Platform.OS === 'ios' ? 300 : 175,
               duration: 300,
           }
       ),
@@ -164,10 +169,10 @@ export default class MapScreen extends Component {
             duration: 300,
         }
     )]).start();
-    console.log(this.state.selectedMarker)
     }
 
     closeModal(){
+
       Animated.parallel([
         Animated.timing(
           this.state.heightAnimation,
@@ -202,7 +207,11 @@ export default class MapScreen extends Component {
                   placeholder='Search for snusbrother'
                 />
               </View>
-              {this.renderMap()}
+              <TouchableWithoutFeedback
+                  onPress={this.closeModal.bind(this)}
+                  accessible={false}>
+                {this.renderMap()}
+              </TouchableWithoutFeedback>
               <Animated.View style={[styles.modal,{height: this.state.heightAnimation, opacity: this.state.opacityAnimation}]}>
                 <MapScreenModal/>
               </Animated.View>
@@ -229,20 +238,20 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   headerView: {
-        position: 'absolute',
-        top:0,
-        left:0,
-        right:0,
-        zIndex: 3,
-        paddingTop: 30,
-        paddingBottom: 10,
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: "#95abaf"
+    position: 'absolute',
+    top:0,
+    left:0,
+    right:0,
+    zIndex: 3,
+    paddingTop: 30,
+    paddingBottom: 10,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: "#95abaf"
     },
-    headerText: {
-        textAlign: 'center',
-        fontSize: 30,
-        color: "#fdfcaa"
+  headerText: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: "#fdfcaa"
     }
 });
