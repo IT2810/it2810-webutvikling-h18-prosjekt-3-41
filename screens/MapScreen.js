@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Animated, ActivityIndicator, TextInput } from 'react-native';
+import { Text, View, StyleSheet, Image, Animated, ActivityIndicator, TextInput, Keyboard, TouchableWithoutFeedback, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import _ from 'lodash';
@@ -24,8 +24,8 @@ export default class MapScreen extends Component {
               1: {
                   name: 'General lover',
                   latlng: {
-                      latitude: 63.4157,
-                      longitude: 10.4061
+                      latitude: 63.41927,
+                      longitude: 10.40206
                   }
               },
               2: {
@@ -66,7 +66,9 @@ export default class MapScreen extends Component {
     }
 
 
+
     renderMarkers() {
+      if(Platform.OS === 'ios'){
         return _.map(this.state.brothers, id => {
             if(id.name.includes(this.state.searchterm)) {
                 return(
@@ -74,16 +76,32 @@ export default class MapScreen extends Component {
                             identifier={id.name}
                             coordinate={id.latlng}
                             title={id.name}
-                            image={require('../assets/customMarker.png')}
+                            image={require('../assets/customMarkerIOS.png')}
                             onDeselect={this.closeModal.bind(this)}
                             onSelect={e => this.openModal(e.nativeEvent.coordinate)}
                             onPress={(e) => console.log(e.nativeEvent.id)}
                     />
                 )
             }
-        });
+          });
+        }else{
+          return _.map(this.state.brothers, id => {
+              if(id.name.includes(this.state.searchterm)) {
+                  return(
+                      <Marker key={id.name}
+                              identifier={id.name}
+                              coordinate={id.latlng}
+                              title={id.name}
+                              image={require('../assets/customMarker.png')}
+                              onDeselect={this.closeModal.bind(this)}
+                              onSelect={e => this.openModal(e.nativeEvent.coordinate)}
+                              onPress={(e) => console.log(e.nativeEvent.id)}
+                      />
+                  )
+              }
+            });
+        }
     }
-
 
     renderMap(){
         if((!this.state.myposition.latitude)||(!this.state.myposition.longitude)){
@@ -105,7 +123,7 @@ export default class MapScreen extends Component {
                         onRegionChangeComplete={this.onRegionChange.bind(this)}
                         rotateEnabled={false}>
                     {this.renderMarkers()}
-                    <Marker pinColor='blue'
+                    <Marker image={require('../assets/appuserMarker.png')}
                             coordinate={this.state.myposition}
                             title={"Me"}/>
                 </MapView>
@@ -127,7 +145,10 @@ export default class MapScreen extends Component {
     }
 
     openModal(coord){
-      this.setState({region: coord})
+      this.mapRef.animateToCoordinate(coord);
+      setTimeout(() => {
+        this.setState({region: coord});
+      }, 700);
       Animated.parallel([
         Animated.timing(
           this.state.heightAnimation,
@@ -168,15 +189,25 @@ export default class MapScreen extends Component {
     render() {
         const { navigfates } = this.props.navigation;
         return (
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <View style={styles.headerView}>
-                <Text style={styles.headerText}>SNUSBROTHERS</Text>
+                <View style={{marginLeft: 10, flex: 0.2,}}>
+                  <Image source={require('../assets/headerLogo.png')}/>
+                </View>
+                <TextInput
+                  style={{ flex: 0.7, paddingLeft: 10, marginLeft: 10, height: 40, borderColor: 'gray', borderWidth: 1, borderRadius:5, backgroundColor: 'white'}}
+                  underlineColorAndroid='transparent'
+                  onChangeText={(text) => this.setState({searchterm: text})}
+                  placeholder='Search for snusbrother'
+                />
               </View>
               {this.renderMap()}
               <Animated.View style={[styles.modal,{height: this.state.heightAnimation, opacity: this.state.opacityAnimation}]}>
-                <MapScreenModal handleClose={this.closeModal.bind(this)} />
+                <MapScreenModal/>
               </Animated.View>
             </View>
+          </TouchableWithoutFeedback>
         );
     }
 }
@@ -205,6 +236,8 @@ const styles = StyleSheet.create({
         zIndex: 3,
         paddingTop: 30,
         paddingBottom: 10,
+        flex: 1,
+        flexDirection: 'row',
         backgroundColor: "#95abaf"
     },
     headerText: {
