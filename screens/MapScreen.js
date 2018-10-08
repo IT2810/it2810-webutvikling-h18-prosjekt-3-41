@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, ActivityIndicator, TextInput } from 'react-native';
+import { Text, View, StyleSheet, Animated, ActivityIndicator, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import _ from 'lodash';
@@ -15,7 +15,11 @@ export default class MapScreen extends Component {
     };
     constructor(props) {
       super(props);
+      this.mapRef = null;
       this.state = {
+          selectedMarker : null,
+          heightAnimation   : new Animated.Value(0),
+          opacityAnimation   : new Animated.Value(0),
           brothers: {
               1: {
                   name: 'General lover',
@@ -52,9 +56,8 @@ export default class MapScreen extends Component {
           },
           searchterm: ''
       }
-        modalVisible: false
       };
-    }
+
 
     onRegionChange(region) {
         this.setState({
@@ -63,22 +66,24 @@ export default class MapScreen extends Component {
     }
 
 
-    renderMarkers() { 
+    renderMarkers() {
         return _.map(this.state.brothers, id => {
             if(id.name.includes(this.state.searchterm)) {
                 return(
                     <Marker key={id.name}
+                            identifier={id.name}
                             coordinate={id.latlng}
                             title={id.name}
-                            onSelect={this.openModal.bind(this)}
+                            image={require('../assets/customMarker.png')}
                             onDeselect={this.closeModal.bind(this)}
-                            onPress={e => this.setState({
-                              region: e.nativeEvent.coordinate
-                    })}/>
+                            onSelect={e => this.openModal(e.nativeEvent.coordinate)}
+                            onPress={(e) => console.log(e.nativeEvent.id)}
+                    />
                 )
             }
         });
     }
+
 
     renderMap(){
         if((!this.state.myposition.latitude)||(!this.state.myposition.longitude)){
@@ -89,17 +94,18 @@ export default class MapScreen extends Component {
         else {
             return(
                 <MapView style={styles.map}
-                         initialRegion={{
+                        ref={(ref) => { this.mapRef = ref }}
+                        initialRegion={{
                              latitude: this.state.myposition.latitude,
                              longitude: this.state.myposition.longitude,
                              latitudeDelta: 0.0922,
                              longitudeDelta: 0.0421,
                          }}
-                         region ={this.state.region}
-                         onRegionChangeComplete={this.onRegionChange.bind(this)}
-                         rotateEnabled={false}>
+                        region ={this.state.region}
+                        onRegionChangeComplete={this.onRegionChange.bind(this)}
+                        rotateEnabled={false}>
                     {this.renderMarkers()}
-                    <Marker image={require('../assets/android-locate.png')}
+                    <Marker pinColor='blue'
                             coordinate={this.state.myposition}
                             title={"Me"}/>
                 </MapView>
@@ -120,28 +126,42 @@ export default class MapScreen extends Component {
             error => (console.log(error)));
     }
 
-    openModal(){
-      this.setState({modalVisible: true});
+    openModal(coord){
+      this.setState({region: coord})
+      Animated.parallel([
+        Animated.timing(
+          this.state.heightAnimation,
+          {
+              toValue: 300,
+              duration: 300,
+          }
+      ),
+      Animated.timing(
+        this.state.opacityAnimation,
+        {
+            toValue: 1,
+            duration: 300,
+        }
+    )]).start();
+    console.log(this.state.selectedMarker)
     }
 
     closeModal(){
-      this.setState({modalVisible: false});
-    }
-
-    onMarkerPress(coord){
-      console.log(coord)
-    }
-
-    getMapModal(){
-      if (this.state.modalVisible){
-        return(
-          <View style={styles.modal}>
-            <MapScreenModal handleClose={this.closeModal.bind(this)} />
-          </View>
-        );
-      }else{
-        return(null);
-      }
+      Animated.parallel([
+        Animated.timing(
+          this.state.heightAnimation,
+          {
+              toValue: 0,
+              duration: 300,
+          }
+      ),
+      Animated.timing(
+        this.state.opacityAnimation,
+        {
+            toValue: 0,
+            duration: 300,
+        }
+    )]).start();
 
     }
 
@@ -149,12 +169,13 @@ export default class MapScreen extends Component {
         const { navigfates } = this.props.navigation;
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                {this.renderMap()}
               <View style={styles.headerView}>
                 <Text style={styles.headerText}>SNUSBROTHERS</Text>
               </View>
               {this.renderMap()}
-              {this.getMapModal()}
+              <Animated.View style={[styles.modal,{height: this.state.heightAnimation, opacity: this.state.opacityAnimation}]}>
+                <MapScreenModal handleClose={this.closeModal.bind(this)} />
+              </Animated.View>
             </View>
         );
     }
@@ -174,6 +195,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    zIndex: 3,
   },
   headerView: {
         position: 'absolute',
@@ -191,5 +213,3 @@ const styles = StyleSheet.create({
         color: "#fdfcaa"
     }
 });
-
-

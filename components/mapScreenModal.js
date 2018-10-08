@@ -72,13 +72,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     height: 300,
-    backgroundColor: '#95abaf',
+    backgroundColor: '#a0b4b7',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     opacity: 0.95
   },
 });
-
 
 
 export default MapScreenModal
