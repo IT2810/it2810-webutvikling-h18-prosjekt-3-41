@@ -1,9 +1,9 @@
 import React from 'react';
-import { createBottomTabNavigator  } from 'react-navigation';
+import { createBottomTabNavigator } from "react-navigation"
 
 // Import the different Screens for the TabNavigator
 import MapScreen from "./screens/MapScreen";
-import CalendarNav from "./screens/CalendarNav";
+import AgendaScreen from "./screens/AgendaScreen";
 
 // Icons for TabNavigation bar
 import { Ionicons } from '@expo/vector-icons';
@@ -15,7 +15,7 @@ export default createBottomTabNavigator ({
         screen: MapScreen
     },
     Calendar: {
-        screen: CalendarNav
+        screen: AgendaScreen
     }
 },
 

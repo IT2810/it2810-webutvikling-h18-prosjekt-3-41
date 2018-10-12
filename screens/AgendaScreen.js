@@ -3,8 +3,13 @@ import { Text, View, StyleSheet } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 
 export default class AgendaScreen extends Component {
+
+    static navigationOptions = {
+        title: 'Agenda',
+    };
+
     constructor(props) {
-        super(props);
+        super();
         this.state = {
             items: {
                 // Just Example of use. We need to load appointments from AsyncStorage
@@ -21,22 +26,33 @@ export default class AgendaScreen extends Component {
     }
 
     render() {
-        // Get the data CalendarScreen sends through navigation
+        // We can send params from between the screens in the TabNavigator
         const { navigation } = this.props;
-        const markedDate = navigation.getParam('selectedDate', '2018-01-01');
 
         return (
             <Agenda
+                // A week start from Monday(1)
                 firstDay={1}
+                // See example of item structure over
                 items={this.state.items}
+                // Callback that gets called when items for a certain month should be loaded (month became visible)
                 loadItemsForMonth={this.loadItems.bind(this)}
-                selected={markedDate}
+                // Selected date on startup - Should me today
+                selected={new Date()}
+                // Specify how each item should be rendered in agenda
                 renderItem={this.renderItem.bind(this)}
+                // Specify how empty date content with no items should be rendered
                 renderEmptyDate={this.renderEmptyDate.bind(this)}
+                // Specify your item comparison function for increased performance
                 rowHasChanged={this.rowHasChanged.bind(this)}
                 // Specify theme properties to override specific styles for calendar parts. Default = {}
                 theme={{
-                    selectedDayBackgroundColor: "lightblue"
+                    selectedDayBackgroundColor: "lightblue",
+                    agendaDayTextColor: 'black',
+                    agendaDayNumColor: 'lightblue',
+                    agendaTodayColor: 'red',
+                    agendaKnobColor: 'lightblue',
+                    todayTextColor: 'red',
                 }}
             />
         );
@@ -70,15 +86,17 @@ export default class AgendaScreen extends Component {
         // console.log(`Load Items for ${day.year}-${day.month}`);
     }
 
+    // How should one item on one day look like
     renderItem(item) {
         return (
             <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text></View>
         );
     }
 
+    // Days with no appointments should just be an empty view
     renderEmptyDate() {
         return (
-            <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+            <View style={styles.emptyDate}></View>
         );
     }
 
