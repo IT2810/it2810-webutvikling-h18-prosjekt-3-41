@@ -109,7 +109,9 @@ export default class MapScreen extends Component {
                               title={id.name}
                               image={require('../assets/customMarker.png')}
                               onPress={(e) => {
-
+                                  this.setState({
+                                      currentBrother: id
+                                  });
                                   this.openModal(e.nativeEvent.coordinate, id)
                                 }
                               }
@@ -162,21 +164,9 @@ export default class MapScreen extends Component {
             error => (console.log(error)));
     }
 
-    openModal(coord, brother){
+    openModal(coord){
 
       this.mapRef.animateToCoordinate(coord);
-      setTimeout(() => {
-        this.setState({
-            currentBrother: brother,
-            region: {
-                latitude: coord.latitude,
-                longitude: coord.longitude,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA
-            }
-
-        });
-      }, 700);
       Animated.parallel([
         Animated.timing(
           this.state.heightAnimation,
@@ -185,12 +175,12 @@ export default class MapScreen extends Component {
               duration: 300,
           }
       ),
-      Animated.timing(
-        this.state.opacityAnimation,
-        {
-            toValue: 1,
-            duration: 300,
-        }
+        Animated.timing(
+          this.state.opacityAnimation,
+          {
+              toValue: 1,
+              duration: 300,
+          }
     )]).start();
     }
 
@@ -216,7 +206,7 @@ export default class MapScreen extends Component {
 
     render() {
         console.log(this.state.region);
-        const { navigfatee } = this.props.navigation;
+        const { navigfateee } = this.props.navigation;
         return (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
