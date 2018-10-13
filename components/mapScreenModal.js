@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, Button, TouchableHighlight, Picker, DatePickerIOS, DatePickerAndroid, View, StyleSheet, Platform} from 'react-native';
+import {Text,
+        Button,
+        Dimensions,
+        Picker,
+        DatePickerIOS,
+        DatePickerAndroid,
+        View,
+        StyleSheet, Platform} from 'react-native';
 
 
 class MapScreenModal extends Component {
@@ -65,6 +72,11 @@ class MapScreenModal extends Component {
 
 
   render() {
+    if(!this.props.brother){
+        return(
+            <View></View>
+        )
+    }
     return (
           <View style={styles.modal}>
             <Text style={{textAlign: 'center', color: '#fdfcaa', fontSize:20, marginTop: 15}}>{this.props.brother.name}</Text>

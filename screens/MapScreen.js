@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image, Animated, ActivityIndicator, TextInput, Keyboard, TouchableWithoutFeedback, Platform } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, Image, Animated, ActivityIndicator, TextInput, Keyboard, TouchableWithoutFeedback, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import _ from 'lodash';
@@ -61,14 +61,7 @@ export default class MapScreen extends Component {
           },
           searchterm: '',
           modalOpen: false,
-          currentBrother: {
-              name: 'General lover',
-              latlng: {
-                  latitude: 63.41927,
-                  longitude: 10.40206
-              },
-              snus: ['Skruf', 'General', 'Mokka']
-          }
+          currentBrother: null
       }
     };
 
@@ -81,7 +74,6 @@ export default class MapScreen extends Component {
     }
 
     renderMarkers() {
-      if(Platform.OS === 'ios'){
         return _.map(this.state.brothers, id => {
             if(id.name.includes(this.state.searchterm)) {
                 return(
@@ -89,37 +81,18 @@ export default class MapScreen extends Component {
                             identifier={id.name}
                             coordinate={id.latlng}
                             title={id.name}
-                            image={require('../assets/customMarkerIOS.png')}
-                            onDeselect={this.closeModal.bind(this)}
-                            onSelect={e => this.openModal(e.nativeEvent.coordinate)}
-                            onPress={this.setState({
-                                currentBrother: id
-                            })}
+                            image={require('../assets/customMarker.png')}
+                            onPress={(e) => {
+                                this.setState({
+                                    currentBrother: id
+                                });
+                                this.openModal(e.nativeEvent.coordinate)
+                            }
+                            }
                     />
                 )
             }
-          });
-        }else{
-          return _.map(this.state.brothers, id => {
-              if(id.name.includes(this.state.searchterm)) {
-                  return(
-                      <Marker key={id.name}
-                              identifier={id.name}
-                              coordinate={id.latlng}
-                              title={id.name}
-                              image={require('../assets/customMarker.png')}
-                              onPress={(e) => {
-                                  this.setState({
-                                      currentBrother: id
-                                  });
-                                  this.openModal(e.nativeEvent.coordinate, id)
-                                }
-                              }
-                      />
-                  )
-              }
-            });
-        }
+        });
     }
 
     renderMap(){
@@ -166,12 +139,16 @@ export default class MapScreen extends Component {
 
     openModal(coord){
 
+      let {height, width} = Dimensions.get('window');
       this.mapRef.animateToCoordinate(coord);
+      setTimeout(() => {
+
+      }, 50);
       Animated.parallel([
         Animated.timing(
           this.state.heightAnimation,
           {
-              toValue: Platform.OS === 'ios' ? 300 : 175,
+              toValue: height * 0.25,
               duration: 300,
           }
       ),
@@ -206,7 +183,7 @@ export default class MapScreen extends Component {
 
     render() {
         console.log(this.state.region);
-        const { navigfateee } = this.props.navigation;
+        const { navigfateeeee } = this.props.navigation;
         return (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
