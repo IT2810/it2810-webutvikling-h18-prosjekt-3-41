@@ -32,13 +32,17 @@ export default createBottomTabNavigator ({
                 case "Map" : iconName = `md-map`; break;
                 case "Calendar" : iconName = `md-calendar`;
             }
-            return <Ionicons name={iconName} size={32} color="black" />;
+            return <Ionicons name={iconName} size={32} color="#fdfcaa" />;
         }
     }),
     // Currently the way we see which Tab is selected in the bar
     tabBarOptions: {
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-    },
+        activeTintColor: '#fdfcaa',
+        inactiveTintColor: 'black',
+        style: {
+    			backgroundColor: '#95abaf',
+    		}
+    }
+
 
 });
