@@ -6,7 +6,8 @@ import _ from 'lodash';
 import MapScreenModal from '../components/mapScreenModal.js';
 
 
-
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = 0.0421;
 
 export default class MapScreen extends Component {
 
@@ -26,28 +27,32 @@ export default class MapScreen extends Component {
                   latlng: {
                       latitude: 63.41927,
                       longitude: 10.40206
-                  }
+                  },
+                  snus: ['Skruf', 'General', 'Mokka']
               },
               2: {
                   name: 'Skruf lover',
                   latlng:{
                       latitude: 63.43,
                       longitude: 10.46
-                  }
+                  },
+                  snus: ['Hubba bubba', 'Thunder', 'O6']
               },
               3: {
                   name: 'Georg',
                   latlng:{
                       latitude: 63.4,
                       longitude: 10.49
-                  }
+                  },
+                  snus: ['Mokka', 'Skruf', 'O2', 'General']
               },
               4: {
                   name: '02',
                   latlng:{
                       latitude: 63.43,
                       longitude: 10.5
-                  }
+                  },
+                  snus: ['Skruf', 'General', 'Nick and johnny']
               }
           },
           myposition: {
@@ -55,12 +60,21 @@ export default class MapScreen extends Component {
               longitude: null
           },
           searchterm: '',
-          modalOpen: false
+          modalOpen: false,
+          currentBrother: {
+              name: 'General lover',
+              latlng: {
+                  latitude: 63.41927,
+                  longitude: 10.40206
+              },
+              snus: ['Skruf', 'General', 'Mokka']
+          }
       }
     };
 
 
-    onRegionChange(region) {
+    onRegionChangeComplete(region) {
+
         this.setState({
           region
         });
@@ -78,7 +92,9 @@ export default class MapScreen extends Component {
                             image={require('../assets/customMarkerIOS.png')}
                             onDeselect={this.closeModal.bind(this)}
                             onSelect={e => this.openModal(e.nativeEvent.coordinate)}
-                            onPress={(e) => console.log(e.nativeEvent.id)}
+                            onPress={this.setState({
+                                currentBrother: id
+                            })}
                     />
                 )
             }
@@ -94,7 +110,7 @@ export default class MapScreen extends Component {
                               image={require('../assets/customMarker.png')}
                               onPress={(e) => {
 
-                                  this.openModal(e.nativeEvent.coordinate)
+                                  this.openModal(e.nativeEvent.coordinate, id)
                                 }
                               }
                       />
@@ -122,7 +138,7 @@ export default class MapScreen extends Component {
                              longitudeDelta: 0.0421,
                         }}
                         region={this.state.region}
-                        onRegionChangeComplete={this.onRegionChange.bind(this)}
+                        onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}
                         rotateEnabled={false}>
                     {this.renderMarkers()}
                     <Marker image={require('../assets/appuserMarker.png')}
@@ -146,11 +162,18 @@ export default class MapScreen extends Component {
             error => (console.log(error)));
     }
 
-    openModal(coord){
+    openModal(coord, brother){
+
       this.mapRef.animateToCoordinate(coord);
       setTimeout(() => {
         this.setState({
-            region: coord,
+            currentBrother: brother,
+            region: {
+                latitude: coord.latitude,
+                longitude: coord.longitude,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA
+            }
 
         });
       }, 700);
@@ -172,7 +195,7 @@ export default class MapScreen extends Component {
     }
 
     closeModal(){
-
+      console.log('closing')
       Animated.parallel([
         Animated.timing(
           this.state.heightAnimation,
@@ -192,7 +215,8 @@ export default class MapScreen extends Component {
     }
 
     render() {
-        const { navigfates } = this.props.navigation;
+        console.log(this.state.region);
+        const { navigfatee } = this.props.navigation;
         return (
           <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -213,7 +237,7 @@ export default class MapScreen extends Component {
                 {this.renderMap()}
               </TouchableWithoutFeedback>
               <Animated.View style={[styles.modal,{height: this.state.heightAnimation, opacity: this.state.opacityAnimation}]}>
-                <MapScreenModal/>
+                <MapScreenModal brother={this.state.currentBrother}/>
               </Animated.View>
             </View>
           </TouchableWithoutFeedback>

@@ -3,11 +3,15 @@ import {Text, Button, TouchableHighlight, Picker, DatePickerIOS, DatePickerAndro
 
 
 class MapScreenModal extends Component {
-  state = {
-    chosenDate: new Date(),
-    snusType: 'GENERAL',
-    antallSnus: '1'
-  };
+
+  constructor(props) {
+      super(props);
+      this.state = {
+          chosenDate: new Date(),
+          antallSnus: '1'
+      };
+  }
+
 
   setDate(newDate) {
     this.setState({chosenDate: newDate,})
@@ -49,10 +53,21 @@ class MapScreenModal extends Component {
     }
   }
 
+  renderSnus() {
+      return(
+          this.props.brother.snus.map(snus => {
+              return(
+                  <Picker.Item key={snus} label={snus} value={snus} />
+              )
+          })
+      );
+  }
+
+
   render() {
     return (
           <View style={styles.modal}>
-            <Text style={{textAlign: 'center', color: '#fdfcaa', fontSize:20, marginTop: 15}}>GENERAL LOVER</Text>
+            <Text style={{textAlign: 'center', color: '#fdfcaa', fontSize:20, marginTop: 15}}>{this.props.brother.name}</Text>
             <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex:0.4, flexDirection: 'column',  alignItems:'center', justifyContent:'flex-start'}}>
                 <Text style={{textAlign: 'center', marginBottom:15}}>Type</Text>
@@ -60,10 +75,7 @@ class MapScreenModal extends Component {
                     selectedValue={this.state.snusType}
                     style={{ width: 150 }}
                     onValueChange={(itemValue, itemIndex) => this.setState({snusType: itemValue})}>
-                    <Picker.Item label="SKRUFF" value="SKRUFF" />
-                    <Picker.Item label="GENERAL" value="GENERAL" />
-                    <Picker.Item label="06" value="06" />
-                    <Picker.Item label="MOKKA" value="MOKKA" />
+                    {this.renderSnus()}
                 </Picker>
               </View>
               <View style={{flex: 0.3, flexDirection: 'column', alignItems:'center', justifyContent: 'flex-start'}}>
