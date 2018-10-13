@@ -1,12 +1,13 @@
 import React from 'react';
-import { createBottomTabNavigator  } from 'react-navigation';
+import { createBottomTabNavigator } from "react-navigation"
 
 // Import the different Screens for the TabNavigator
 import MapScreen from "./screens/MapScreen";
-import CalenderScreen from "./screens/CalenderScreen";
+import AgendaScreen from "./screens/AgendaScreen";
 
 // Icons for TabNavigation bar
 import { Ionicons } from '@expo/vector-icons';
+
 
 export default createBottomTabNavigator ({
     // Here we add the different screens
@@ -14,13 +15,13 @@ export default createBottomTabNavigator ({
         screen: MapScreen
     },
     Calendar: {
-        screen: CalenderScreen
+        screen: AgendaScreen
     }
 },
 
 // Settings for TabNavigator
 {
-    initialRouteName: 'Map',
+    initialRouteName: 'Calendar',
     navigationOptions: ({ navigation }) => ({
         // Set icons for tabs, maybe we can use some of the inputs as well..
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -42,5 +43,6 @@ export default createBottomTabNavigator ({
     			backgroundColor: '#95abaf',
     		}
     }
+
 
 });

@@ -32,4 +32,8 @@ native calendar components. Snusbrothers are suppose to see
 their appointments here so they have no trouble in scheduling
 their snus-use.   
 
+The Agenda component had everything we wanted. It had an calendar and a screen where 
+we can view the appointments. We are able to customize it a lot. We can make customized
+items in the agenda and change the theme as we want easily.
+
 Documentation: https://github.com/wix/react-native-calendars 
