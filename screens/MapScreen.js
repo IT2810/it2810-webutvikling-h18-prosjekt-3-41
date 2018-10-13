@@ -117,7 +117,7 @@ export default class MapScreen extends Component {
                     brothers = require('../preloadeddata').brothers;
                     AsyncStorage.setItem('brothers', JSON.stringify(brothers));
             }}).
-            then(
+            then(() => {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         this.setState({
@@ -129,6 +129,7 @@ export default class MapScreen extends Component {
                         });
                     },
                     error => (console.log(error)))
+                }
             )
     }
 
