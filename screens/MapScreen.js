@@ -53,7 +53,8 @@ export default class MapScreen extends Component {
 
     renderMarkers() {
         return _.map(this.state.brothers, id => {
-            if (id.name.includes(this.state.searchTerm)) {
+
+            if (id.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())) {
                 return (
                     <Marker key={id.name}
                             identifier={id.name}
@@ -65,7 +66,7 @@ export default class MapScreen extends Component {
                                     currentBrother: id
                                 });
                                 this.openModal(e.nativeEvent.coordinate)
-                            }
+                                }
                             }
                     />
                 )
@@ -74,7 +75,6 @@ export default class MapScreen extends Component {
     }
 
     renderMap() {
-        console.log('brother', this.state.brothers);
         if ((!this.state.myPosition.latitude) || (!this.state.myPosition.longitude) || (!this.state.brothers)) {
             return (
                 <ActivityIndicator size="large" color="#0000ff"/>
@@ -178,7 +178,7 @@ export default class MapScreen extends Component {
     }
 
     render() {
-        const {navigfateeeee} = this.props.navigation;
+        const {navigfateee} = this.props.navigation;
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -198,7 +198,7 @@ export default class MapScreen extends Component {
                                 backgroundColor: 'white'
                             }}
                             underlineColorAndroid='transparent'
-                            onChangeText={(text) => this.setState({searchterm: text})}
+                            onChangeText={(text) => this.setState({searchTerm: text})}
                             placeholder='Search for snusbrother'
                         />
                     </View>
