@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import {Agenda} from 'react-native-calendars';
+import _ from 'lodash';
 
 export default class AgendaScreen extends Component {
 
@@ -13,15 +14,18 @@ export default class AgendaScreen extends Component {
         this.state = {
             items: {
                 // Just Example of use. We need to load appointments from AsyncStorage
-                "2018-10-10": [
+                "2018-10-14": [
                     {
                         "height": 127,
-                        "name" : "Item for 2018-10-10"
+                        "name" : "Item for 2018-10-10 selv",
+                        "snus" : "General",
+                        "antall": "10"
                     }
                 ],
                 // An empty date has to be like this:
                 "2018-10-11": []
-            }
+            },
+            addedItems: {}
         };
     }
 
@@ -34,7 +38,7 @@ export default class AgendaScreen extends Component {
                 // A week start from Monday(1)
                 firstDay={1}
                 // See example of item structure over
-                items={this.state.items}
+                items={this.state.addedItems}
                 // Callback that gets called when items for a certain month should be loaded (month became visible)
                 loadItemsForMonth={this.loadItems.bind(this)}
                 // Selected date on startup - Should me today
@@ -58,38 +62,68 @@ export default class AgendaScreen extends Component {
         );
     }
 
+    componentDidMount() {
+        let appointments = null;
+        let newItems = this.state.items
+        AsyncStorage.getItem('appointments').
+            then(items => {
+                if(items) {
+                    appointments = JSON.parse(items);
+                }else {
+                    appointments = require('../preloadedappointments');
+                    AsyncStorage.setItem('appointments', JSON.stringify(appointments));
+                }
+        }).
+            then(() => {
+                _.map(appointments, appointment => {
+                    Object.keys(appointment).forEach(key => {
+                        if(!this.state.items[key]){
+                            newItems[key] = appointment[key]
+                        }else {
+                            newItems[key] = [...this.state.items[key], ...appointment[key]];
+                        }
+                    });
+                });
+            this.setState({
+                items: newItems
+            })
+        })
+    }
+
     // Loads random items for the agenda.
     // Here we should load saved appointments and if no appointment make an empty day
     loadItems(day) {
+        console.log(day);
         setTimeout(() => {
-            for (let i = 0; i < 85; i++) {
-                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                const strTime = this.timeToString(time);
-                if (!this.state.items[strTime]) {
-                    this.state.items[strTime] = [];
-                    const numItems = Math.floor(Math.random() * 5);
-                    for (let j = 0; j < numItems; j++) {
-                        this.state.items[strTime].push({
-                            name: 'Item for ' + strTime,
-                            height: Math.max(50, Math.floor(Math.random() * 150))
-                        });
-                    }
-                }
+            const time = day.timestamp;
+            const strTime = this.timeToString(time)
+            if(!this.state.items[strTime]) {
+                this.state.addedItems[strTime] = []
             }
+            Object.keys(this.state.items).forEach(appointment => {
+                if(!this.state.addedItems[appointment]) {
+                    this.state.addedItems[appointment] = this.state.items[appointment]
+                }
+            });
 
             const newItems = {};
-            Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+            Object.keys(this.state.addedItems).forEach(key => {newItems[key] = this.state.addedItems[key];});
             this.setState({
-                items: newItems
+                addedItems: newItems
             });
         }, 1000);
+        console.log(this.state.addedItems);
         // console.log(`Load Items for ${day.year}-${day.month}`);
     }
 
     // How should one item on one day look like
     renderItem(item) {
         return (
-            <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text></View>
+            <View style={[styles.item, {height: item.height}]}>
+                <Text>{item.name}</Text>
+                <Text>{item.snus}</Text>
+                <Text>{item.antall}</Text>
+            </View>
         );
     }
 

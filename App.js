@@ -21,7 +21,7 @@ export default createBottomTabNavigator ({
 
 // Settings for TabNavigator
 {
-    initialRouteName: 'Map',
+    initialRouteName: 'Calendar',
     navigationOptions: ({ navigation }) => ({
         // Set icons for tabs, maybe we can use some of the inputs as well..
         tabBarIcon: ({ focused, horizontal, tintColor }) => {

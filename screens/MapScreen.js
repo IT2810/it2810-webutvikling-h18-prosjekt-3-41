@@ -112,9 +112,9 @@ export default class MapScreen extends Component {
         AsyncStorage.getItem('brothers').
             then(items => {
                 if (items) {
-                    brothers = JSON.parse(items)
+                    brothers = JSON.parse(items);
                 } else {
-                    brothers = require('../preloadeddata').brothers;
+                    brothers = require('../preloadedsnusbrothers').brothers;
                     AsyncStorage.setItem('brothers', JSON.stringify(brothers));
             }}).
             then(() => {
@@ -178,7 +178,7 @@ export default class MapScreen extends Component {
     }
 
     render() {
-        const {navigfateee} = this.props.navigation;
+        const {navigfate} = this.props.navigation;
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
