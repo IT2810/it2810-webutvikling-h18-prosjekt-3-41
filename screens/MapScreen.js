@@ -158,7 +158,7 @@ export default class MapScreen extends Component {
     }
 
     closeModal() {
-        console.log('closing')
+        Keyboard.dismiss();
         Animated.parallel([
             Animated.timing(
                 this.state.heightAnimation,

@@ -31,6 +31,22 @@
         "longitude": 10.5
       },
       "snus": ["Skruf", "General", "Nick and johnny"]
+    },
+    "5": {
+      "name": "Theodor",
+      "latlng": {
+        "latitude": 63.46,
+        "longitude": 10.5021
+      },
+      "snus": ["06", "G1", "03"]
+    },
+    "6": {
+      "name": "Skruferud",
+      "latlng": {
+        "latitude": 63.38,
+        "longitude": 10.52
+      },
+      "snus": ["Snuserud", "G3", "Skruf slim"]
     }
   }
 }
