@@ -2,15 +2,12 @@ import React, {Component} from 'react';
 import {
     Text,
     Button,
-    Dimensions,
     Picker,
     DatePickerIOS,
     DatePickerAndroid,
     View,
     StyleSheet,
     Platform,
-    TextInput,
-    Modal
 } from 'react-native';
 import PickerModal from "./PickerModal";
 
@@ -22,7 +19,7 @@ class MapScreenModal extends Component {
         this.state = {
             chosenDate: new Date(),
             antallSnus: '1',
-            snusType: "Default",
+            snusType: "-",
 
             showDatePicker: false,
             showAntallSnusPicker: false,
@@ -119,7 +116,7 @@ class MapScreenModal extends Component {
                         openModal={() => this.setState({showTypeSnusPicker: true})}
                         closeModal={() => this.setState({showTypeSnusPicker: false})}
                         visible={this.state.showTypeSnusPicker}
-                        value={this.props.brother.snus[0]}
+                        value={this.state.snusType}
                         picker={this.renderTypeSnusPicker()}
                         header={"Type"}
                     />
@@ -144,6 +141,7 @@ class MapScreenModal extends Component {
                         <View style={styles.outerView}>
                             <Text style={{textAlign: 'center', marginBottom: 15}}>{"Dato"}</Text>
                             <Text
+                                style={styles.inputField}
                                 onPress={this.renderDatePickerAndroid}>{this.state.chosenDate.toLocaleDateString()}
                             </Text>
                         </View>
@@ -151,7 +149,11 @@ class MapScreenModal extends Component {
                 </View>
 
                 <View style={styles.buttonView}>
-                    <Button style={{marginBottom: 5}} title='BOM SNUS' color='#95abaf' onPress={this.handleBomSnus}/>
+                    <Button
+                        style={{marginBottom: 5}}
+                        title='BOM SNUS'
+                        color={Platform.OS === "ios" ? "#a0b4b7" : '#fdfcaa'}
+                        onPress={this.handleBomSnus}/>
                 </View>
             </View>
         );
@@ -180,6 +182,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start'
+    },
+    inputField: {
+        backgroundColor: "white",
+        width: "90%",
+        padding: "2%"
     }
 });
 

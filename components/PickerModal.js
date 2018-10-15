@@ -16,8 +16,9 @@ export default class PickerModal extends Component {
     render() {
         return (
             <View style={styles.outerView}>
-                <Text style={{textAlign: 'center', marginBottom: 15}}>{this.props.header}</Text>
+                <Text style={{textAlign: 'center', marginBottom: 15,}}>{this.props.header}</Text>
                 <Text
+                    style={styles.inputField}
                     onPress={this.props.openModal}>{this.props.value}</Text>
                 <Modal
                     animationType="slide"
@@ -51,6 +52,11 @@ const styles = StyleSheet.create({
     innerModal: {
         backgroundColor: "#ffffff",
         height: Dimensions.get("window").height * 0.35
+    },
+    inputField: {
+        backgroundColor: "white",
+        width: "90%",
+        padding: "2%",
     }
 });
 
