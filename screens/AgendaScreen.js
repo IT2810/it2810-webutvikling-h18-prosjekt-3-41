@@ -95,16 +95,18 @@ export default class AgendaScreen extends Component {
     loadItems(day) {
         console.log(day);
         setTimeout(() => {
-            const time = day.timestamp;
-            const strTime = this.timeToString(time)
-            if(!this.state.items[strTime]) {
-                this.state.addedItems[strTime] = []
-            }
-            Object.keys(this.state.items).forEach(appointment => {
-                if(!this.state.addedItems[appointment]) {
-                    this.state.addedItems[appointment] = this.state.items[appointment]
+            for(let i = 0; i < 31; i++){
+                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+                const strTime = this.timeToString(time)
+                if(!this.state.items[strTime]) {
+                    this.state.addedItems[strTime] = []
                 }
-            });
+                if(!this.state.addedItems[strTime]) {
+                    this.state.addedItems[strTime] = this.state.items[strTime]
+                }
+            }
+
+
 
             const newItems = {};
             Object.keys(this.state.addedItems).forEach(key => {newItems[key] = this.state.addedItems[key];});

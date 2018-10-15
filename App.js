@@ -43,6 +43,4 @@ export default createBottomTabNavigator ({
     			backgroundColor: '#95abaf',
     		}
     }
-
-
 });
