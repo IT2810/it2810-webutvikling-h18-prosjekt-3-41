@@ -184,7 +184,7 @@ export default class MapScreen extends Component {
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                     <View style={styles.headerView}>
                         <View style={{marginLeft: 10, flex: 0.2,}}>
-                            <Image source={require('../assets/headerLogo.png')}/>
+                             <Image source={require('../assets/headerIcon.png')} style={{width: 52, height: 37}}/>
                         </View>
                         <TextInput
                             style={{
@@ -247,9 +247,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: "#95abaf"
     },
-    headerText: {
-        textAlign: 'center',
-        fontSize: 30,
-        color: "#fdfcaa"
-    }
 });

@@ -8,11 +8,11 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appIcon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/snusbrothers.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#8aa3a9",
     },
     "updates": {
       "fallbackToCacheTimeout": 0
