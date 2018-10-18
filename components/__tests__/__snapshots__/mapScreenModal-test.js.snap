@@ -399,7 +399,7 @@ exports[`renders correctly 1`] = `
           }
         }
       >
-        10/18/2018
+        12/17/2017
       </Text>
       <Modal
         animationType="slide"
@@ -474,7 +474,7 @@ exports[`renders correctly 1`] = `
             </View>
             <View>
               <RCTDatePicker
-                date={1539858370506}
+                date={1513477440000}
                 mode="datetime"
                 onChange={[Function]}
                 onResponderTerminationRequest={[Function]}

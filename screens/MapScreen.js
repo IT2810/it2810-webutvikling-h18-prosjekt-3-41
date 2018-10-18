@@ -114,7 +114,7 @@ export default class MapScreen extends Component {
                 if (items) {
                     brothers = JSON.parse(items);
                 } else {
-                    brothers = require('../preloadedsnusbrothers').brothers;
+                    brothers = require('../assets/preloadedsnusbrothers').brothers;
                     AsyncStorage.setItem('brothers', JSON.stringify(brothers));
             }}).
             then(() => {

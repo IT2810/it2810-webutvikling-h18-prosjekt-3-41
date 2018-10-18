@@ -64,13 +64,13 @@ export default class AgendaScreen extends Component {
 
     componentDidMount() {
         let appointments = null;
-        let newItems = this.state.items
+        let newItems = this.state.items;
         AsyncStorage.getItem('appointments').
             then(items => {
                 if(items) {
                     appointments = JSON.parse(items);
                 }else {
-                    appointments = require('../preloadedappointments');
+                    appointments = require('../assets/preloadedappointments');
                     AsyncStorage.setItem('appointments', JSON.stringify(appointments));
                 }
         }).
@@ -93,11 +93,10 @@ export default class AgendaScreen extends Component {
     // Loads random items for the agenda.
     // Here we should load saved appointments and if no appointment make an empty day
     loadItems(day) {
-        console.log(day);
         setTimeout(() => {
             for(let i = 0; i < 31; i++){
                 const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                const strTime = this.timeToString(time)
+                const strTime = this.timeToString(time);
                 if(!this.state.items[strTime]) {
                     this.state.addedItems[strTime] = []
                 }
@@ -114,8 +113,7 @@ export default class AgendaScreen extends Component {
                 addedItems: newItems
             });
         }, 1000);
-        console.log(this.state.addedItems);
-        // console.log(`Load Items for ${day.year}-${day.month}`);
+
     }
 
     // How should one item on one day look like
