@@ -6,7 +6,7 @@ import _ from 'lodash';
 export default class AgendaScreen extends Component {
 
     static navigationOptions = {
-        title: 'Agenda',
+        title: 'Kalender',
     };
 
     constructor(props) {

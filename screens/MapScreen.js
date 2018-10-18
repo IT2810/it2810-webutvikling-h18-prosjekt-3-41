@@ -22,7 +22,7 @@ import MapScreenModal from '../components/mapScreenModal.js';
 export default class MapScreen extends Component {
 
     static navigationOptions = {
-        title: 'Map',
+        title: 'Kart',
     };
 
     constructor(props) {
@@ -178,7 +178,6 @@ export default class MapScreen extends Component {
     }
 
     render() {
-        const {navigfate} = this.props.navigation;
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -188,18 +187,17 @@ export default class MapScreen extends Component {
                         </View>
                         <TextInput
                             style={{
-                                flex: 0.7,
+                                flex: 0.75,
                                 paddingLeft: 10,
-                                marginLeft: 10,
+                                marginLeft: -20,
                                 height: 40,
-                                borderColor: 'gray',
-                                borderWidth: 1,
-                                borderRadius: 5,
+                                borderColor: '#95abaf',
+                                borderRadius: 7,
                                 backgroundColor: 'white'
                             }}
                             underlineColorAndroid='transparent'
                             onChangeText={(text) => this.setState({searchTerm: text})}
-                            placeholder='Search for snusbrother'
+                            placeholder='Søk etter en SNUSBROTHER'
                         />
                     </View>
                     <TouchableWithoutFeedback
