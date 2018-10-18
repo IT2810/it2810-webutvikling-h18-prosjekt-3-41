@@ -13,7 +13,7 @@ import {
     AsyncStorage}
     from 'react-native';
 
-import {Ionicons} from '@expo/vector-icons';
+import { NavigationActions } from "react-navigation"
 import MapView, {Marker} from 'react-native-maps';
 import _ from 'lodash';
 import MapScreenModal from '../components/mapScreenModal.js';
@@ -42,6 +42,16 @@ export default class MapScreen extends Component {
             currentBrother: null
         }
     };
+
+    handleBomSnus(chosenDate, snusType, antallSnus) {
+
+        this.props.navigation.navigate("Calendar",
+            {chosenDate: chosenDate,
+            snusType: snusType,
+            antallSnus: antallSnus,
+            });
+
+    }
 
 
     onRegionChangeComplete(region) {
@@ -114,7 +124,7 @@ export default class MapScreen extends Component {
                 if (items) {
                     brothers = JSON.parse(items);
                 } else {
-                    brothers = require('../preloadedsnusbrothers').brothers;
+                    brothers = require('../assets/preloadedsnusbrothers').brothers;
                     AsyncStorage.setItem('brothers', JSON.stringify(brothers));
             }}).
             then(() => {
@@ -209,7 +219,7 @@ export default class MapScreen extends Component {
                         height: this.state.heightAnimation,
                         opacity: this.state.opacityAnimation
                     }]}>
-                        <MapScreenModal brother={this.state.currentBrother}/>
+                        <MapScreenModal brother={this.state.currentBrother} handleBomSnus={this.handleBomSnus.bind(this)}/>
                     </Animated.View>
                 </View>
             </TouchableWithoutFeedback>

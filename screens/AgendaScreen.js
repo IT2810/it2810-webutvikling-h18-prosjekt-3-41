@@ -32,7 +32,6 @@ export default class AgendaScreen extends Component {
     render() {
         // We can send params from between the screens in the TabNavigator
         const { navigation } = this.props;
-
         return (
             <Agenda
                 // A week start from Monday(1)
@@ -64,13 +63,13 @@ export default class AgendaScreen extends Component {
 
     componentDidMount() {
         let appointments = null;
-        let newItems = this.state.items
+        let newItems = this.state.items;
         AsyncStorage.getItem('appointments').
             then(items => {
                 if(items) {
                     appointments = JSON.parse(items);
                 }else {
-                    appointments = require('../preloadedappointments');
+                    appointments = require('../assets/preloadedappointments');
                     AsyncStorage.setItem('appointments', JSON.stringify(appointments));
                 }
         }).
@@ -90,14 +89,24 @@ export default class AgendaScreen extends Component {
         })
     }
 
+    // On bomSnus from MapScreen, this happens. TODO: Add new appointment to this state
+    componentWillUpdate(props){
+        const { navigation } = this.props;
+        let chosenDate = navigation.getParam("chosenDate","fallback");
+        let snusType = navigation.getParam("snusType","fallback");
+        let antallSnus = navigation.getParam("antallSnus","fallback");
+        console.log(chosenDate,snusType,antallSnus);
+
+    }
+
+
     // Loads random items for the agenda.
     // Here we should load saved appointments and if no appointment make an empty day
     loadItems(day) {
-        console.log(day);
         setTimeout(() => {
             for(let i = 0; i < 31; i++){
                 const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                const strTime = this.timeToString(time)
+                const strTime = this.timeToString(time);
                 if(!this.state.items[strTime]) {
                     this.state.addedItems[strTime] = []
                 }
@@ -114,17 +123,15 @@ export default class AgendaScreen extends Component {
                 addedItems: newItems
             });
         }, 1000);
-        console.log(this.state.addedItems);
-        // console.log(`Load Items for ${day.year}-${day.month}`);
+
     }
 
     // How should one item on one day look like
     renderItem(item) {
         return (
             <View style={[styles.item, {height: item.height}]}>
-                <Text>{item.name}</Text>
-                <Text>{item.snus}</Text>
-                <Text>{item.antall}</Text>
+                <Text style={{fontSize: 25}}>{item.name}</Text>
+                <Text>Du har avtalt å bomme {item.antall} {item.snus}</Text>
             </View>
         );
     }
