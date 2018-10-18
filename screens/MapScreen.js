@@ -13,7 +13,7 @@ import {
     AsyncStorage}
     from 'react-native';
 
-import {Ionicons} from '@expo/vector-icons';
+import { NavigationActions } from "react-navigation"
 import MapView, {Marker} from 'react-native-maps';
 import _ from 'lodash';
 import MapScreenModal from '../components/mapScreenModal.js';
@@ -44,9 +44,13 @@ export default class MapScreen extends Component {
     };
 
     handleBomSnus(chosenDate, snusType, antallSnus) {
-        console.log('dato: ' + chosenDate);
-        console.log('type: ' + snusType);
-        console.log('antall: ' + antallSnus);
+
+        this.props.navigation.navigate("Calendar",
+            {chosenDate: chosenDate,
+            snusType: snusType,
+            antallSnus: antallSnus,
+            });
+
     }
 
 

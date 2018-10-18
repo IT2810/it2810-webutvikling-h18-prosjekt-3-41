@@ -32,7 +32,6 @@ export default class AgendaScreen extends Component {
     render() {
         // We can send params from between the screens in the TabNavigator
         const { navigation } = this.props;
-
         return (
             <Agenda
                 // A week start from Monday(1)
@@ -89,6 +88,17 @@ export default class AgendaScreen extends Component {
             })
         })
     }
+
+    // On bomSnus from MapScreen, this happens. TODO: Add new appointment to this state
+    componentWillUpdate(props){
+        const { navigation } = this.props;
+        let chosenDate = navigation.getParam("chosenDate","fallback");
+        let snusType = navigation.getParam("snusType","fallback");
+        let antallSnus = navigation.getParam("antallSnus","fallback");
+        console.log(chosenDate,snusType,antallSnus);
+
+    }
+
 
     // Loads random items for the agenda.
     // Here we should load saved appointments and if no appointment make an empty day
