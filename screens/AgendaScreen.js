@@ -130,9 +130,8 @@ export default class AgendaScreen extends Component {
     renderItem(item) {
         return (
             <View style={[styles.item, {height: item.height}]}>
-                <Text>{item.name}</Text>
-                <Text>{item.snus}</Text>
-                <Text>{item.antall}</Text>
+                <Text style={{fontSize: 25}}>{item.name}</Text>
+                <Text>Du har avtalt å bomme {item.antall} {item.snus}</Text>
             </View>
         );
     }
