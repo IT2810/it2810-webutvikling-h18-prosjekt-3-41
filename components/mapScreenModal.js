@@ -27,15 +27,9 @@ class MapScreenModal extends Component {
         };
 
         this.renderDatePickerAndroid = this.renderDatePickerAndroid.bind(this);
-        this.handleBomSnus = this.handleBomSnus.bind(this);
     }
 
 
-    handleBomSnus() {
-        console.log('dato: ' + this.state.chosenDate);
-        console.log('type: ' + this.state.snusType);
-        console.log('antall: ' + this.state.antallSnus);
-    }
 
     async renderDatePickerAndroid() {
         const {action, year, month, day} = await DatePickerAndroid.open({
@@ -153,7 +147,9 @@ class MapScreenModal extends Component {
                         style={{marginBottom: 5}}
                         title='BOM SNUS'
                         color={Platform.OS === "ios" ? "#a0b4b7" : '#fdfcaa'}
-                        onPress={this.handleBomSnus}/>
+                        onPress={() => {
+                            return this.props
+                                .handleBomSnus(this.state.chosenDate,this.state.snusType,this.state.antallSnus)}}/>
                 </View>
             </View>
         );

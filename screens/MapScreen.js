@@ -43,6 +43,12 @@ export default class MapScreen extends Component {
         }
     };
 
+    handleBomSnus(chosenDate, snusType, antallSnus) {
+        console.log('dato: ' + chosenDate);
+        console.log('type: ' + snusType);
+        console.log('antall: ' + antallSnus);
+    }
+
 
     onRegionChangeComplete(region) {
 
@@ -210,7 +216,7 @@ export default class MapScreen extends Component {
                         height: this.state.heightAnimation,
                         opacity: this.state.opacityAnimation
                     }]}>
-                        <MapScreenModal brother={this.state.currentBrother}/>
+                        <MapScreenModal brother={this.state.currentBrother} handleBomSnus={this.handleBomSnus.bind(this)}/>
                     </Animated.View>
                 </View>
             </TouchableWithoutFeedback>
