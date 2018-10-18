@@ -178,7 +178,6 @@ export default class MapScreen extends Component {
     }
 
     render() {
-        const {navigfate} = this.props.navigation;
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
