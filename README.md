@@ -1,13 +1,11 @@
-## Intro - Oscar og Martin
+## Intro
 Snus.
 We have all tried it, and we all love it. It’s the life and core of how every Scandinavian youth get through their day. 
 But snus comes with one terrible catch. NOT HAVING MORE SNUS.
 
 SNUSBROTHERS is a mobile app designed to solve this problem. With one touch, the consumer can find nearby snus-users, and setting up appointments to bom(receive) snus. One can easily search for known users, or just pick the user closest to your own location. Once the snusbrother you want to bom from is decided, you will get the option to choose from the different kinds of snus, choose the amount, and set up a date and time to meet.   
 
-- Tilstand skal lagres (vha AsyncStorage, diskuter dette i eget avsnitt lenger nede) slik at data tas vare på selv om appen avsluttes og startes. 
-
-The application implements external modules such as 'react-native-maps' and 'react-native-calendars'. The use of theese modals will be described later on in this document. 
+The application implements external modules such as 'react-native-maps' and 'react-native-calendars'. The use of theese modules will be described later on in this document. Aswell as how we use AsyncStorage to save state after you exit and enter the application
 
 ## Planning
 After discussing the assignment and brainstorming for ideas, we decided to create a low-level prototype of how we wanted the apperance and functionality to be. This was done using Balsamiq, and allowed us to design the app using pre-built widgets and a drag-and-drop WYSIWYG editor. Here is the final prototype: 
@@ -48,13 +46,6 @@ https://docs.expo.io/versions/latest/
 
 
 ## Third Party Modules
-Oppgave
-- Dokumentasjonen skal diskutere, forklare og vise til alle de viktigste valgene og 
-løsningene som gruppa gjør (inklusive valg av komponenter og api).
-- Gruppas valg av teknologi som utforskes (jmfr krav til innhold) skal dokumenteres i 
-tutorials form slik at andre lett kan lære av eksempelet dere lager (dvs. gi en liten 
-introduksjon til hva og hvordan).
- 
 
 ### Navigation
 React Navigation is born from the React Native community's need for an extensible yet 
@@ -95,59 +86,31 @@ https://www.reactnavigation.org/docs/en/getting-started.html
 
 
 
-### Map - Oscar og Martin
+### Map
 
 <img align="right" src="./assets/react-native-map.png"  width="155" height="315"> 
 
 For the MapScreen we choose to use React Native Map, a module created and maintained by Airbnb. The module is easy to use, and includes usefull components like; MapView, Markers, Callout, Polygon, PolyLine, Circle and Overlay.
 
 Let us take a look at how easy it is to implement the module in your application. 
-The following code will draw a full-screen map and place a marker on the map.
+The following code is an example of how you can render a map and place a marker on it.
 ```javascript
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import MapView, {Marker} from 'react-native-maps';
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <MapView  style={styles.map}
-                  initialRegion={{
-                    latitude: 63.41927,
-                    longitude: 10.40206,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                  }}>
-          <Marker coordinate={{
-                    latitude: 63.41927,
-                    longitude: 10.40206
-                  }}
-                  title={"Me"}
-          />
-        </MapView>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    top: 0,
-    right: 0,
-  }
-});
-
-
+ <MapView  style={styles.map}
+           initialRegion={{
+               latitude: 63.41927,
+               longitude: 10.40206,
+               latitudeDelta: 0.0922,
+               longitudeDelta: 0.0421,
+             }}>
+     <Marker coordinate={{
+               latitude: 63.41927,
+               longitude: 10.40206
+             }}
+             title={"Me"}
+     />
+</MapView>
 ```
-
+As you can see the MapView takes a initalRegion param which tells the map which region and how much zoom it should have. We can also se how the marker takes its own coordinate which we here have hard coded to be at an exact position. 
 
 
 ### Calendar
@@ -217,7 +180,7 @@ write more about afterwards.
 
 
 
-## Testing - Alle
+## Testing
 ### Jest
 What is Jest and why are we using it? First of all Jest is a complete and ready to set-up 
 JavaScript testing solution that works out of the box for any React project. When we
