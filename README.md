@@ -9,8 +9,6 @@ SNUSBROTHERS is a mobile app designed to solve this problem. With one touch, the
 
 The application implements external modules such as 'react-native-maps' and 'react-native-calendars'. The use of theese modals will be described later on in this document. 
 
-<img src="./assets/react-native-map.png"  width="155" height="315">               <img src="./assets/react-native-calendar.png"  width="155" height="315">
-
 ## Planning
 After discussing the assignment and brainstorming for ideas, we decided to create a low-level prototype of how we wanted the apperance and functionality to be. This was done using Balsamiq, and allowed us to design the app using pre-built widgets and a drag-and-drop WYSIWYG editor. Here is the final prototype: 
 
@@ -57,7 +55,11 @@ løsningene som gruppa gjør (inklusive valg av komponenter og api).
 tutorials form slik at andre lett kan lære av eksempelet dere lager (dvs. gi en liten 
 introduksjon til hva og hvordan).
 
+### React-Native-Maps
+<img src="./assets/react-native-map.png"  width="155" height="315">      
 
+### React-Native-Calendar
+<img src="./assets/react-native-calendar.png"  width="155" height="315">
 
 
 ### Navigation
