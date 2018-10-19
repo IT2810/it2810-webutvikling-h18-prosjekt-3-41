@@ -1,5 +1,9 @@
 ## Intro - Oscar og Martin
 - Hva er snusbrothers og hvor er inspirasjonen fra
+- Du skal kunne legge til nye elementer som oppgaver, todos, avtaler, motivasjoner og/eller målinger etc. Velg selv hva dere vil jobbe med.
+- Tilstand skal lagres (vha AsyncStorage, diskuter dette i eget avsnitt lenger nede) slik at data tas vare på selv om appen avsluttes og startes. 
+- Appen skal vise ett eksempel på noe som er utover basic React Native UI-problematikk 
+(som bruk av gps, skritt-teller, direkte kommunikasjon med andre enheter - eller hva som helst annet relevant dere ønsker å utforske og som er innenfor begrensingene å få til).
 
 
 
