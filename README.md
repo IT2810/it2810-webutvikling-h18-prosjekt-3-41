@@ -12,7 +12,9 @@ The application implements external modules such as 'react-native-maps' and 'rea
 <img src="./assets/react-native-map.png"  width="155" height="315">               <img src="./assets/react-native-calendar.png"  width="155" height="315">
 
 ## Planning
-After discussing the assignment and brainstorming for ideas, we decided to create a low-level prototype of how we wanted the apperance and functionality of the app to be. This was done using Balsamiq. This allowed us to design the app using pre-built widgets and a drag-and-drop WYSIWYG editor. This is our prototype for the application: 
+After discussing the assignment and brainstorming for ideas, we decided to create a low-level prototype of how we wanted the apperance and functionality to be. This was done using Balsamiq, and allowed us to design the app using pre-built widgets and a drag-and-drop WYSIWYG editor. Here is the final prototype: 
+
+<img src="./assets/prototype.png"  width="500" height="300">  
 
 
 ## Expo
