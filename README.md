@@ -1,7 +1,15 @@
 ## Intro - Oscar og Martin
-- Hva er snusbrothers og hvor er inspirasjonen fra
-- Du skal kunne legge til nye elementer som oppgaver, todos, avtaler, motivasjoner og/eller målinger etc. Velg selv hva dere vil jobbe med.
+Snus.
+We have all tried it, and we all love it. It’s the life and core of how every Scandinavian youth get through their day. 
+But snus comes with one terrible catch. NOT HAVING MORE SNUS.
+
+SNUSBROTHERS is a mobile app designed to solve this problem. With one touch, the consumer can find nearby snus-users, and setting up appointments to bom(receive) snus. One can easily search for known users, or just pick the user closest to your own location. Once the snusbrother you want to bom from is decided, you will get the option to choose from the different kinds of snus, choose the amount, and set up a date and time to meet.   
+
 - Tilstand skal lagres (vha AsyncStorage, diskuter dette i eget avsnitt lenger nede) slik at data tas vare på selv om appen avsluttes og startes. 
+
+kart,kalender
+![alt text](./assets/react-native-map.png)
+
 - Appen skal vise ett eksempel på noe som er utover basic React Native UI-problematikk 
 (som bruk av gps, skritt-teller, direkte kommunikasjon med andre enheter - eller hva som helst annet relevant dere ønsker å utforske og som er innenfor begrensingene å få til).
 
