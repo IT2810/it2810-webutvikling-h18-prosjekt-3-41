@@ -30,7 +30,6 @@ class MapScreenModal extends Component {
     }
 
 
-
     async renderDatePickerAndroid() {
         const {action, year, month, day} = await DatePickerAndroid.open({
             date: new Date()
@@ -49,7 +48,9 @@ class MapScreenModal extends Component {
         return (
             <DatePickerIOS
                 date={this.state.chosenDate}
-                onDateChange={(date)=>{this.setState({chosenDate: date})}}
+                onDateChange={(date) => {
+                    this.setState({chosenDate: date})
+                }}
             />
         )
 
@@ -105,7 +106,7 @@ class MapScreenModal extends Component {
                     marginTop: 15
                 }}>{this.props.brother.name}</Text>
 
-                <View style={{flex: 1, flexDirection: 'row', alignItems: "center",justifyContent: "center"}}>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
                     <PickerModal
                         openModal={() => this.setState({showTypeSnusPicker: true})}
                         closeModal={() => this.setState({showTypeSnusPicker: false})}
@@ -149,7 +150,8 @@ class MapScreenModal extends Component {
                         color={Platform.OS === "ios" ? "#a0b4b7" : '#fdfcaa'}
                         onPress={() => {
                             return this.props
-                                .handleBomSnus(this.state.chosenDate,this.state.snusType,this.state.antallSnus, this.props.brother.name)}}/>
+                                .handleBomSnus(this.state.chosenDate, this.state.snusType, this.state.antallSnus, this.props.brother.name)
+                        }}/>
                 </View>
             </View>
         );
@@ -166,12 +168,12 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 5,
         opacity: 0.95
     },
-    buttonView:{
+    buttonView: {
         backgroundColor: '#fdfcaa',
-        borderRadius:4,
-        width:150,
+        borderRadius: 4,
+        width: 150,
         alignSelf: 'center',
-        marginBottom:5
+        marginBottom: 5
     },
     outerView: {
         flex: 0.3,

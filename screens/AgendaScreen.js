@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
+import React, {Component} from 'react';
+import {Text, View, StyleSheet, AsyncStorage} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import _ from 'lodash';
 
@@ -19,7 +19,7 @@ export default class AgendaScreen extends Component {
 
     render() {
         // We can send params from between the screens in the TabNavigator
-        const { navigation } = this.props;
+        const {navigation} = this.props;
         return (
             <Agenda
                 // A week start from Monday(1)
@@ -60,7 +60,7 @@ export default class AgendaScreen extends Component {
                     }
                     appointments[store[i][0]] = JSON.parse(store[i][1])
                 });
-                if(Object.keys(appointments).length === 0){
+                if (Object.keys(appointments).length === 0) {
                     let file = require('../assets/appointments');
                     Object.keys(file).forEach(key => {
                         appointments[key] = file[key]
@@ -76,9 +76,9 @@ export default class AgendaScreen extends Component {
 
     checkAppointmentId(id) {
         let check = false
-        Object.keys(this.state.items).forEach( key => {
+        Object.keys(this.state.items).forEach(key => {
             this.state.items[key].map(appointment => {
-                if(appointment.appointmentId === id){
+                if (appointment.appointmentId === id) {
                     check = true
                 }
             })
@@ -87,12 +87,12 @@ export default class AgendaScreen extends Component {
     }
 
     // On bomSnus from MapScreen, this happens. TODO: Add new appointment to this state
-    componentDidUpdate(prevProps){
-        const { navigation } = this.props;
+    componentDidUpdate(prevProps) {
+        const {navigation} = this.props;
         const appointmentId = navigation.getParam("appointmentId", "fallback");
         const chosenDate = navigation.getParam("chosenDate", "fallback");
 
-        if(!this.checkAppointmentId(appointmentId) && !(chosenDate === 'fallback')) {
+        if (!this.checkAppointmentId(appointmentId) && !(chosenDate === 'fallback')) {
             console.log('adding items');
             let newItems = {};
             const snusType = navigation.getParam("snusType", "fallback");
@@ -119,10 +119,10 @@ export default class AgendaScreen extends Component {
             }
             else {
                 console.log('adding new item to existing date');
-                Object.keys(this.state.items).forEach( key => {
-                    if(key === chosenDate) {
+                Object.keys(this.state.items).forEach(key => {
+                    if (key === chosenDate) {
                         newItems[chosenDate] = [...newItems[chosenDate], ...this.state.items[chosenDate]]
-                    }else{
+                    } else {
                         newItems[key] = this.state.items[key]
                     }
                 });
@@ -136,12 +136,9 @@ export default class AgendaScreen extends Component {
         }
 
 
-
     }
 
 
-    // Loads random items for the agenda.
-    // Here we should load saved appointments and if no appointment make an empty day
     loadItems(day) {
         console.log('loading');
         const time = day.timestamp;
@@ -149,23 +146,25 @@ export default class AgendaScreen extends Component {
         console.log(strTime);
         console.log(this.state.items);
         setTimeout(() => {
-            for(let i = 0; i < 31; i++){
+            for (let i = 0; i < 31; i++) {
                 const time = day.timestamp + i * 24 * 60 * 60 * 1000;
                 const strTime = this.timeToString(time);
-                if(!this.state.items[strTime]) {
+                if (!this.state.items[strTime]) {
                     this.state.addedItems[strTime] = []
                 }
 
-                else if(!this.state.addedItems[strTime] || !(this.state.addedItems[strTime].length === this.state.items[strTime].length)) {
+                else if (!this.state.addedItems[strTime] || !(this.state.addedItems[strTime].length === this.state.items[strTime].length)) {
                     console.log(strTime, this.state.items[strTime]);
                     this.state.addedItems[strTime] = this.state.items[strTime]
-                }else if (this.state.addedItems[strTime] === 0 ){
+                } else if (this.state.addedItems[strTime] === 0) {
                     this.state.addedItems[strTime] = this.state.items[strTime]
                 }
             }
 
             const newItems = {};
-            Object.keys(this.state.addedItems).forEach(key => {newItems[key] = this.state.addedItems[key];});
+            Object.keys(this.state.addedItems).forEach(key => {
+                newItems[key] = this.state.addedItems[key];
+            });
             this.setState({
                 addedItems: newItems
             });
@@ -211,7 +210,7 @@ const styles = StyleSheet.create({
     },
     emptyDate: {
         height: 15,
-        flex:1,
+        flex: 1,
         paddingTop: 30
     }
 });

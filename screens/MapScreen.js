@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-    Text,
     View,
     Dimensions,
     StyleSheet,
@@ -10,11 +9,11 @@ import {
     TextInput,
     Keyboard,
     TouchableWithoutFeedback,
-    AsyncStorage,
-    Platform}
+    AsyncStorage
+}
     from 'react-native';
 
-import { NavigationActions } from "react-navigation"
+import {NavigationActions} from "react-navigation"
 import MapView, {Marker} from 'react-native-maps';
 import _ from 'lodash';
 import MapScreenModal from '../components/mapScreenModal.js';
@@ -51,11 +50,12 @@ export default class MapScreen extends Component {
         const date = year + '-' + month + '-' + day;
         const appointmentId = date + snusType + antallSnus + name;
         this.props.navigation.navigate("Calendar",
-            {chosenDate: date,
-            snusType: snusType,
-            antallSnus: antallSnus,
-            name: name,
-            appointmentId: appointmentId,
+            {
+                chosenDate: date,
+                snusType: snusType,
+                antallSnus: antallSnus,
+                name: name,
+                appointmentId: appointmentId,
             });
 
     }
@@ -83,7 +83,7 @@ export default class MapScreen extends Component {
                                     currentBrother: id
                                 });
                                 this.openModal(e.nativeEvent.coordinate)
-                                }
+                            }
                             }
                     />
                 )
@@ -123,18 +123,16 @@ export default class MapScreen extends Component {
     }
 
 
-
     componentDidMount() {
         let brothers = null;
-        AsyncStorage.getItem('brothers').
-            then(items => {
-                if (items) {
-                    brothers = JSON.parse(items);
-                } else {
-                    brothers = require('../assets/preloadedsnusbrothers').brothers;
-                    AsyncStorage.setItem('brothers', JSON.stringify(brothers));
-            }}).
-            then(() => {
+        AsyncStorage.getItem('brothers').then(items => {
+            if (items) {
+                brothers = JSON.parse(items);
+            } else {
+                brothers = require('../assets/preloadedsnusbrothers').brothers;
+                AsyncStorage.setItem('brothers', JSON.stringify(brothers));
+            }
+        }).then(() => {
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         this.setState({
@@ -146,8 +144,8 @@ export default class MapScreen extends Component {
                         });
                     },
                     error => (console.log(error)))
-                }
-            )
+            }
+        )
     }
 
     openModal(coord) {
@@ -200,7 +198,7 @@ export default class MapScreen extends Component {
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                     <View style={styles.headerView}>
                         <View style={{marginLeft: 10, flex: 0.2,}}>
-                             <Image source={require('../assets/headerIcon.png')} style={{width: 52, height: 37}}/>
+                            <Image source={require('../assets/headerIcon.png')} style={{width: 52, height: 37}}/>
                         </View>
                         <TextInput
                             style={{
@@ -226,7 +224,8 @@ export default class MapScreen extends Component {
                         height: this.state.heightAnimation,
                         opacity: this.state.opacityAnimation
                     }]}>
-                        <MapScreenModal brother={this.state.currentBrother} handleBomSnus={this.handleBomSnus.bind(this)}/>
+                        <MapScreenModal brother={this.state.currentBrother}
+                                        handleBomSnus={this.handleBomSnus.bind(this)}/>
                     </Animated.View>
                 </View>
             </TouchableWithoutFeedback>
