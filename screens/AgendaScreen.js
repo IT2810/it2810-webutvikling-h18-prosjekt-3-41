@@ -93,6 +93,7 @@ export default class AgendaScreen extends Component {
         const chosenDate = navigation.getParam("chosenDate", "fallback");
 
         if(!this.checkAppointmentId(appointmentId) && !(chosenDate === 'fallback')) {
+            console.log('adding items');
             let newItems = {};
             const snusType = navigation.getParam("snusType", "fallback");
             const antallSnus = navigation.getParam("antallSnus", "fallback");
@@ -105,6 +106,7 @@ export default class AgendaScreen extends Component {
                 appointmentId: appointmentId
             }];
             if (!this.state.items[chosenDate]) {
+                console.log(this.state.items[chosenDate]);
                 Object.keys(this.state.items).forEach(key => {
                     newItems[key] = this.state.items[key]
                 });
@@ -141,7 +143,11 @@ export default class AgendaScreen extends Component {
     // Loads random items for the agenda.
     // Here we should load saved appointments and if no appointment make an empty day
     loadItems(day) {
-
+        console.log('loading');
+        const time = day.timestamp;
+        const strTime = this.timeToString(time);
+        console.log(strTime);
+        console.log(this.state.items);
         setTimeout(() => {
             for(let i = 0; i < 31; i++){
                 const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -149,7 +155,11 @@ export default class AgendaScreen extends Component {
                 if(!this.state.items[strTime]) {
                     this.state.addedItems[strTime] = []
                 }
+
                 else if(!this.state.addedItems[strTime] || !(this.state.addedItems[strTime].length === this.state.items[strTime].length)) {
+                    console.log(strTime, this.state.items[strTime]);
+                    this.state.addedItems[strTime] = this.state.items[strTime]
+                }else if (this.state.addedItems[strTime] === 0 ){
                     this.state.addedItems[strTime] = this.state.items[strTime]
                 }
             }

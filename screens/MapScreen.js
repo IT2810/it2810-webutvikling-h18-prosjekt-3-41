@@ -46,10 +46,10 @@ export default class MapScreen extends Component {
 
     handleBomSnus(chosenDate, snusType, antallSnus, name) {
         let date = chosenDate.toLocaleDateString();
-        const year = Platform.OS === 'android' ? "20" + date.slice(6) : date.slice(6);
-        const month = Platform.OS === 'android' ? date.slice(0,2) : date.slice(3,5);
-        const day = Platform.OS === 'android' ? date.slice(3,5) : date.slice(0,2);
-        date = year + '-' + month + '-' + day;
+        const year = chosenDate.getFullYear();
+        const month = '0' + (chosenDate.getMonth() + 1).slice(-2);
+        const day = '0' + (chosenDate.getDate()).slice(-2)
+        date = year + '-' + month + '-' + day;;
         const appointmentId = date + snusType + antallSnus + name;
         this.props.navigation.navigate("Calendar",
             {chosenDate: date,
