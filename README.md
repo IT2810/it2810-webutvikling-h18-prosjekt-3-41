@@ -7,8 +7,8 @@ SNUSBROTHERS is a mobile app designed to solve this problem. With one touch, the
 
 - Tilstand skal lagres (vha AsyncStorage, diskuter dette i eget avsnitt lenger nede) slik at data tas vare på selv om appen avsluttes og startes. 
 
-kart,kalender
 The application implements external modules such as react-native-maps and react-native-calendars. The use of theese modals will be described later on in this document. 
+
 <img src="./assets/react-native-map.png"  width="155" height="315"> <img src="./assets/react-native-calendar.png"  width="155" height="315">
 
 - Appen skal vise ett eksempel på noe som er utover basic React Native UI-problematikk 
