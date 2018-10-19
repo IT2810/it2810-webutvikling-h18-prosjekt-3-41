@@ -10,7 +10,8 @@ import {
     TextInput,
     Keyboard,
     TouchableWithoutFeedback,
-    AsyncStorage}
+    AsyncStorage,
+    Platform}
     from 'react-native';
 
 import { NavigationActions } from "react-navigation"
@@ -39,16 +40,24 @@ export default class MapScreen extends Component {
             },
             searchTerm: '',
             modalOpen: false,
-            currentBrother: null
+            currentBrother: null,
         }
     };
 
-    handleBomSnus(chosenDate, snusType, antallSnus) {
-
+    handleBomSnus(chosenDate, snusType, antallSnus, name) {
+        let date = chosenDate.toLocaleDateString();
+        console.log('date', date);
+        const year = Platform.OS === 'android' ? "20" + date.slice(6) : date.slice(6);
+        const month = Platform.OS === 'android' ? date.slice(0,2) : date.slice(3,5);
+        const day = Platform.OS === 'android' ? date.slice(3,5) : date.slice(0,2);
+        date = year + '-' + month + '-' + day;
+        const appointmentId = date + snusType + antallSnus + name;
         this.props.navigation.navigate("Calendar",
-            {chosenDate: chosenDate,
+            {chosenDate: date,
             snusType: snusType,
             antallSnus: antallSnus,
+            name: name,
+            appointmentId: appointmentId,
             });
 
     }

@@ -5,20 +5,23 @@
         "height": 127,
         "name": "General Lover",
         "snus": "General",
-        "antall": 2
+        "antall": 2,
+        "appointmentId": 2
       },
       {
         "height": 127,
         "name": "Skruferu",
         "snus": "Skruf",
-        "antall": 3
+        "antall": 3,
+        "appointmentId": 3
       }
     ],
     "2018-10-16": [{
       "height": 127,
       "name": "General Lover",
       "snus": "General",
-      "antall": 2
+      "antall": 2,
+      "appointmentId": 4
       }
     ],
     "2018-10-26":[
@@ -26,7 +29,8 @@
         "height": 127,
         "name": "General Lover",
         "snus": "General",
-        "antall": 2
+        "antall": 2,
+        "appointmentId": 5
       }
     ],
     "2018-10-23":[
@@ -34,7 +38,8 @@
         "height": 127,
         "name": "General Lover",
         "snus": "General",
-        "antall": 2
+        "antall": 2,
+        "appointmentId": 6
       }
     ],
     "2018-10-19":[
@@ -42,7 +47,8 @@
         "height": 127,
         "name": "General Lover",
         "snus": "General",
-        "antall": 3
+        "antall": 3,
+        "appointmentId": 7
       }
     ],
     "2018-11-19":[
@@ -50,7 +56,8 @@
         "height": 127,
         "name": "General Lover",
         "snus": "General",
-        "antall": 2
+        "antall": 2,
+        "appointmentId": 8
       }
     ]
 
