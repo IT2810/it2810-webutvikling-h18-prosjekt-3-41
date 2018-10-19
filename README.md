@@ -8,7 +8,9 @@ SNUSBROTHERS is a mobile app designed to solve this problem. With one touch, the
 - Tilstand skal lagres (vha AsyncStorage, diskuter dette i eget avsnitt lenger nede) slik at data tas vare på selv om appen avsluttes og startes. 
 
 kart,kalender
-![](./assets/react-native-map.png =100x400)
+
+<img src="./assets/react-native-map.png"  width="155" height="315">
+<img src="./assets/react-native-calendar.png"  width="155" height="315">
 
 - Appen skal vise ett eksempel på noe som er utover basic React Native UI-problematikk 
 (som bruk av gps, skritt-teller, direkte kommunikasjon med andre enheter - eller hva som helst annet relevant dere ønsker å utforske og som er innenfor begrensingene å få til).
