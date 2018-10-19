@@ -175,8 +175,15 @@ write more about afterwards.
 
 
 
-## AsyncStorage - Martin
-
+## AsyncStorage
+AsyncStorage is a library for React Native that is used to store data locally within the app. This is
+useful when you have data that is only relevant for the specific user, for example if you don't always want
+to log in when you open the application. For our application we use AsyncStorage for saving the new appointments
+that the user adds. We have also stored fictional users that have snus available. This is simply for being able
+to use the application. We also have som preloaded appointments that the user can see, so that you get an
+understanding of how the application works. When using AsyncStorage you have to stringify the JavaScript object,
+as AsyncStorage only understands strings. For our app it would only be necessary to save our appointments in
+AsyncStorage, as users would always change position, so they would have to be updatet externally.
 
 
 
