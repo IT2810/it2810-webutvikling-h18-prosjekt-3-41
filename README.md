@@ -5,12 +5,33 @@
 
 
 
-## Expo - Kristoffer
-- Skriv noe om hvordan prosjektet er satt om med Expo
+## Expo
+Expo is the easiest way to get started building React Native applications. It
+allows you to get started without installing or configuring Xcode or Android Studio 
+for building native code. As long as you have Node.js on your computer you can use npm
+(node package manager) to install the Expo CLI command line utility.
 
+```
+npm install -g expo-cli
+```
 
+Now that you have have the command line utility you only need to run one line to get
+started with your React Native project.
 
+```
+expo init AppName
 
+cd AppName
+npm start
+```
+This will start the application and was exactly how we got started with the SnusBrothers
+project. 
+
+So Expo apps are just React Native apps which contain the Expo SDK (Software Development
+Kit). The SDK is a native-and-JS library which provides access to the device's system functionality 
+(things like the camera, contacts, local storage, and other hardware). If you want
+a deeper understanding of what Expo is i recommend visiting their own documentation site at
+https://docs.expo.io/versions/latest/
 
 
 
