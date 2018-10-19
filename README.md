@@ -5,7 +5,7 @@ But snus comes with one terrible catch. NOT HAVING MORE SNUS.
 
 SNUSBROTHERS is a mobile app designed to solve this problem. With one touch, the consumer can find nearby snus-users, and setting up appointments to bom(receive) snus. One can easily search for known users, or just pick the user closest to your own location. Once the snusbrother you want to bom from is decided, you will get the option to choose from the different kinds of snus, choose the amount, and set up a date and time to meet.   
 
-The application implements external modules such as 'react-native-maps' and 'react-native-calendars'. The use of theese modules will be described later on in this document. Aswell as how we use AsyncStorage to save state after you exit and enter the application
+The application implements external modules such as 'react-navigation' , 'react-native-maps' and 'react-native-calendars'. The use of theese modules will be described later on in this document. Aswell as how we use AsyncStorage to save state after you exit and enter the application
 
 ## Planning
 After discussing the assignment and brainstorming for ideas, we decided to create a low-level prototype of how we wanted the apperance and functionality to be. This was done using Balsamiq, and allowed us to design the app using pre-built widgets and a drag-and-drop WYSIWYG editor. Here is the final prototype: 
@@ -94,6 +94,8 @@ For the MapScreen we choose to use React Native Map, a module created and mainta
 
 Let us take a look at how easy it is to implement the module in your application. 
 The following code is an example of how you can render a map and place a marker on it.
+
+<br/><br/>
 ```javascript
  <MapView  style={styles.map}
            initialRegion={{
