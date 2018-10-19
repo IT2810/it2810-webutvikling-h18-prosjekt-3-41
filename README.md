@@ -96,12 +96,57 @@ https://www.reactnavigation.org/docs/en/getting-started.html
 
 
 ### Map - Oscar og Martin
-Her må vi skrive noe om hvorfor og hvordan vi bruker react-native-map
 
-<img style="float: right;" src="./assets/react-native-map.png"  width="155" height="315">    
+<img align="right" src="./assets/react-native-map.png"  width="155" height="315"> 
+
+For the MapScreen we choose to use React Native Map, a module created and maintained by Airbnb. The module is easy to use, and includes usefull components like; MapView, Markers, Callout, Polygon, PolyLine, Circle and Overlay.
+
+Let us take a look at how easy it is to implement the module in your application. 
+The following code will draw a full-screen map and place a marker on the map.
+```javascript
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+import MapView, {Marker} from 'react-native-maps';
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <MapView  style={styles.map}
+                  initialRegion={{
+                    latitude: 63.41927,
+                    longitude: 10.40206,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}>
+          <Marker coordinate={{
+                    latitude: 63.41927,
+                    longitude: 10.40206
+                  }}
+                  title={"Me"}
+          />
+        </MapView>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    top: 0,
+    right: 0,
+  }
+});
 
 
-
+```
 
 
 
