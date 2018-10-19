@@ -157,4 +157,28 @@ write more about afterwards.
 
 ## Testing - Alle
 ### Jest
-Her må vi dokumentere testing vår
+What is Jest and why are we using it? First of all Jest is a complete and ready to set-up 
+JavaScript testing solution that works out of the box for any React project. When we
+did the expo init command that we talked about in the beginning, Jest was already then 
+implemented in the project. This makes Jest a very natural choice.   
+Jest does also have fast interactive watch mode only runs test files related to changed files and 
+is optimized to give signal quickly. Jest can also capture 
+snapshots of React trees or other serializable values to simplify testing and to 
+analyze how state changes over time. These kind of snapshots can you find several times
+in our test cases.   
+
+```javascript
+const tree = renderer.create(<Component/>).toJSON();
+expect(tree).toMatchSnapshot()
+```
+Here you can see an example of how you can compare your component to a snapshot. Your
+snapshot should be a representation of how you would like the component to look like. 
+
+We have made test files for all our React components and they all are located in test folders
+and ends with "-test.js". This is so that Jest knows which test files to run on the npm test
+command. 
+
+We have also did systematic tests so that we know that the application works both for 
+iOS and android. An example of a problem that occurred under development was with the 
+DatePicker. This is different for the two platforms. We are therefore rendering different code 
+based on which platform the user are on. 
