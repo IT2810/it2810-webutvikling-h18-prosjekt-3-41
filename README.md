@@ -10,7 +10,9 @@
 
 
 ## Expo
-Expo is the easiest way to get started building React Native applications. It
+Expo is a set of tools, libraries and services which let you build native iOS and Android 
+apps by writing JavaScript.
+It is the easiest way to get started building React Native applications. It
 allows you to get started without installing or configuring Xcode or Android Studio 
 for building native code. As long as you have Node.js on your computer you can use npm
 (node package manager) to install the Expo CLI command line utility.
