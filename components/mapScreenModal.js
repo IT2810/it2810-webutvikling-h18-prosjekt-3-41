@@ -149,7 +149,7 @@ class MapScreenModal extends Component {
                         color={Platform.OS === "ios" ? "#a0b4b7" : '#fdfcaa'}
                         onPress={() => {
                             return this.props
-                                .handleBomSnus(this.state.chosenDate,this.state.snusType,this.state.antallSnus)}}/>
+                                .handleBomSnus(this.state.chosenDate,this.state.snusType,this.state.antallSnus, this.props.brother.name)}}/>
                 </View>
             </View>
         );

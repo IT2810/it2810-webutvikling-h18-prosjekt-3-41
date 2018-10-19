@@ -10,21 +10,9 @@ export default class AgendaScreen extends Component {
     };
 
     constructor(props) {
-        super();
+        super(props);
         this.state = {
-            items: {
-                // Just Example of use. We need to load appointments from AsyncStorage
-                "2018-10-14": [
-                    {
-                        "height": 127,
-                        "name" : "Item for 2018-10-10 selv",
-                        "snus" : "General",
-                        "antall": "10"
-                    }
-                ],
-                // An empty date has to be like this:
-                "2018-10-11": []
-            },
+            items: {},
             addedItems: {}
         };
     }
@@ -62,40 +50,90 @@ export default class AgendaScreen extends Component {
     }
 
     componentDidMount() {
-        let appointments = null;
-        let newItems = this.state.items;
-        AsyncStorage.getItem('appointments').
-            then(items => {
-                if(items) {
-                    appointments = JSON.parse(items);
-                }else {
-                    appointments = require('../assets/preloadedappointments');
-                    AsyncStorage.setItem('appointments', JSON.stringify(appointments));
-                }
-        }).
-            then(() => {
-                _.map(appointments, appointment => {
-                    Object.keys(appointment).forEach(key => {
-                        if(!this.state.items[key]){
-                            newItems[key] = appointment[key]
-                        }else {
-                            newItems[key] = [...this.state.items[key], ...appointment[key]];
-                        }
-                    });
+        let appointments = {};
+        AsyncStorage.getAllKeys((err, keys) => {
+            AsyncStorage.multiGet(keys, (err, stores) => {
+
+                stores.map((result, i, store) => {
+                    if (store[i][0] === 'brothers') {
+                        return
+                    }
+                    appointments[store[i][0]] = JSON.parse(store[i][1])
                 });
-            this.setState({
-                items: newItems
+                if(Object.keys(appointments).length === 0){
+                    let file = require('../assets/appointments');
+                    Object.keys(file).forEach(key => {
+                        appointments[key] = file[key]
+                        AsyncStorage.setItem(key, JSON.stringify(appointments[key]));
+                    })
+                }
+                this.setState({
+                    items: appointments
+                })
             })
         })
     }
 
+    checkAppointmentId(id) {
+        let check = false
+        Object.keys(this.state.items).forEach( key => {
+            this.state.items[key].map(appointment => {
+                if(appointment.appointmentId === id){
+                    check = true
+                }
+            })
+        });
+        return check
+    }
+
     // On bomSnus from MapScreen, this happens. TODO: Add new appointment to this state
-    componentWillUpdate(props){
+    componentDidUpdate(prevProps){
         const { navigation } = this.props;
-        let chosenDate = navigation.getParam("chosenDate","fallback");
-        let snusType = navigation.getParam("snusType","fallback");
-        let antallSnus = navigation.getParam("antallSnus","fallback");
-        console.log(chosenDate,snusType,antallSnus);
+        const appointmentId = navigation.getParam("appointmentId", "fallback");
+        const chosenDate = navigation.getParam("chosenDate", "fallback");
+
+        if(!this.checkAppointmentId(appointmentId) && !(chosenDate === 'fallback')) {
+            let newItems = {};
+            const snusType = navigation.getParam("snusType", "fallback");
+            const antallSnus = navigation.getParam("antallSnus", "fallback");
+            const name = navigation.getParam("name", "fallback");
+            newItems[chosenDate] = [{
+                height: 127,
+                name: name,
+                snus: snusType,
+                antall: antallSnus,
+                appointmentId: appointmentId
+            }];
+            if (!this.state.items[chosenDate]) {
+                Object.keys(this.state.items).forEach(key => {
+                    newItems[key] = this.state.items[key]
+                });
+
+                this.setState({
+                    items: newItems
+                }, () => {
+                    AsyncStorage.setItem(chosenDate, JSON.stringify(newItems[chosenDate]));
+                })
+            }
+            else {
+                console.log('adding new item to existing date');
+                Object.keys(this.state.items).forEach( key => {
+                    if(key === chosenDate) {
+                        newItems[chosenDate] = [...newItems[chosenDate], ...this.state.items[chosenDate]]
+                    }else{
+                        newItems[key] = this.state.items[key]
+                    }
+                });
+                this.setState({
+                    items: newItems
+                }, () => {
+                    AsyncStorage.removeItem(chosenDate);
+                    AsyncStorage.setItem(chosenDate, JSON.stringify(this.state.items[chosenDate]));
+                })
+            }
+        }
+
+
 
     }
 
@@ -103,6 +141,7 @@ export default class AgendaScreen extends Component {
     // Loads random items for the agenda.
     // Here we should load saved appointments and if no appointment make an empty day
     loadItems(day) {
+
         setTimeout(() => {
             for(let i = 0; i < 31; i++){
                 const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -110,12 +149,10 @@ export default class AgendaScreen extends Component {
                 if(!this.state.items[strTime]) {
                     this.state.addedItems[strTime] = []
                 }
-                if(!this.state.addedItems[strTime]) {
+                else if(!this.state.addedItems[strTime] || !(this.state.addedItems[strTime].length === this.state.items[strTime].length)) {
                     this.state.addedItems[strTime] = this.state.items[strTime]
                 }
             }
-
-
 
             const newItems = {};
             Object.keys(this.state.addedItems).forEach(key => {newItems[key] = this.state.addedItems[key];});
@@ -123,8 +160,8 @@ export default class AgendaScreen extends Component {
                 addedItems: newItems
             });
         }, 1000);
-
     }
+
 
     // How should one item on one day look like
     renderItem(item) {
