@@ -110,7 +110,7 @@ The following code is an example of how you can render a map and place a marker 
      />
 </MapView>
 ```
-As you can see the MapView takes a initalRegion param which tells the map which region and how much zoom it should have. We can also se how the marker takes its own coordinate which we here have hard coded to be at an exact position. 
+As you can see the MapView takes a initalRegion param which tells the map which region and how much zoom it should have when you start. We can also se how the marker takes its own coordinate which we here have hard coded to be at an exact position. 
 
 
 ### Calendar
