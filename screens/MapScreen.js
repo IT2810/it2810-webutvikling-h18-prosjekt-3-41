@@ -49,7 +49,7 @@ export default class MapScreen extends Component {
         const year = chosenDate.getFullYear();
         const month = '0' + (chosenDate.getMonth() + 1).slice(-2);
         const day = '0' + (chosenDate.getDate()).slice(-2)
-        date = year + '-' + month + '-' + day;;
+        date = year + '-' + month + '-' + day;
         const appointmentId = date + snusType + antallSnus + name;
         this.props.navigation.navigate("Calendar",
             {chosenDate: date,
