@@ -95,7 +95,7 @@ Her må vi skrive noe om hvorfor og hvordan vi bruker react-native-map
 
 
 
-### Calendar - Kristoffer
+### Calendar
 For the AgendaScreen we choose to use React Native Calendars 
 which is an easy to use module that includes various customizable react 
 native calendar components. SnusBrothers are suppose to see
