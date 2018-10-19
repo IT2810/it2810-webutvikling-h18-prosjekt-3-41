@@ -35,7 +35,7 @@ https://docs.expo.io/versions/latest/
 
 
 
-## Tredjeparts
+## Third Party Modules
 Oppgave
 - Dokumentasjonen skal diskutere, forklare og vise til alle de viktigste valgene og 
 løsningene som gruppa gjør (inklusive valg av komponenter og api).
@@ -46,11 +46,12 @@ introduksjon til hva og hvordan).
 
 
 
+### Navigation
+React Navigation is born from the React Native community's need for an extensible yet 
+easy-to-use navigation solution written entirely in JavaScript (so you can read and 
+understand all of the source), on top of powerful native primitives.   
 
-
-
-### Navigation - Kristoffer
-Mobile apps are rarely made up of a single screen. Snusbrother is no
+Mobile apps are rarely made up of a single screen. SnusBrothers is no
 exception. To manage the presentation of, and transition between,
 multiple screens we have used React Navigation which is a standard
 when getting started using React Native. React Navigation provides
@@ -67,19 +68,20 @@ export default createBottomTabNavigator ({
         screen: MapScreen
     },
     Calendar: {
-        screen: CalenderScreen
+        screen: AgendaScreen
     }
 },
 ...
 );
 ```
+As you can see we are creating a TabNavigator. We do this so we get the menu at the bottom of 
+the screen so we easily can switch between Map- and AgendaScreen. 
 
-Documentation: https://reactnavigation.org/
-
-
-
-
-
+This works right out of the box on you do not need any special configuration to make this
+work good. You can fill in some more options when creating the navigator as we do over. 
+This is configuration about what icons to use and what colors for example. You can read more 
+about this in their documentation at:
+https://www.reactnavigation.org/docs/en/getting-started.html 
 
 
 
