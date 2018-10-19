@@ -54,13 +54,7 @@ løsningene som gruppa gjør (inklusive valg av komponenter og api).
 - Gruppas valg av teknologi som utforskes (jmfr krav til innhold) skal dokumenteres i 
 tutorials form slik at andre lett kan lære av eksempelet dere lager (dvs. gi en liten 
 introduksjon til hva og hvordan).
-
-### React-Native-Maps
-<img src="./assets/react-native-map.png"  width="155" height="315">      
-
-### React-Native-Calendar
-<img src="./assets/react-native-calendar.png"  width="155" height="315">
-
+ 
 
 ### Navigation
 React Navigation is born from the React Native community's need for an extensible yet 
@@ -104,7 +98,7 @@ https://www.reactnavigation.org/docs/en/getting-started.html
 ### Map - Oscar og Martin
 Her må vi skrive noe om hvorfor og hvordan vi bruker react-native-map
 
-
+<img style="float: right;" src="./assets/react-native-map.png"  width="155" height="315">    
 
 
 
@@ -112,12 +106,14 @@ Her må vi skrive noe om hvorfor og hvordan vi bruker react-native-map
 
 
 ### Calendar
+<img align="right" src="./assets/react-native-calendar.png"  width="155" height="315">
 For the AgendaScreen we choose to use React Native Calendars 
 which is an easy to use module that includes various customizable react 
-native calendar components. SnusBrothers are suppose to see
+native calendar components. SnusBrothers are suppose to see 
 their appointments here so they have no trouble in scheduling
-their snus-use.   
-
+their snus-use. 
+\
+\
 The Agenda component had everything we wanted. It had an calendar and a screen where 
 we can view the appointments. We are able to customize it a lot. We can make customized
 items in the agenda and change the theme as we want easily.
