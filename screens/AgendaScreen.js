@@ -58,7 +58,6 @@ export default class AgendaScreen extends Component {
                     if (store[i][0] === 'brothers') {
                         return
                     }
-                    console.log(JSON.parse(store[i][1]));
                     appointments[store[i][0]] = JSON.parse(store[i][1])
                 });
                 if(Object.keys(appointments).length === 0){
@@ -94,7 +93,6 @@ export default class AgendaScreen extends Component {
         const chosenDate = navigation.getParam("chosenDate", "fallback");
 
         if(!this.checkAppointmentId(appointmentId) && !(chosenDate === 'fallback')) {
-            console.log('heia');
             let newItems = {};
             const snusType = navigation.getParam("snusType", "fallback");
             const antallSnus = navigation.getParam("antallSnus", "fallback");
@@ -107,7 +105,6 @@ export default class AgendaScreen extends Component {
                 appointmentId: appointmentId
             }];
             if (!this.state.items[chosenDate]) {
-                console.log('adding new date');
                 Object.keys(this.state.items).forEach(key => {
                     newItems[key] = this.state.items[key]
                 });
@@ -127,11 +124,10 @@ export default class AgendaScreen extends Component {
                         newItems[key] = this.state.items[key]
                     }
                 });
-                console.log(newItems);
                 this.setState({
                     items: newItems
                 }, () => {
-                    AsyncStorage.removeItem(chosenDate)
+                    AsyncStorage.removeItem(chosenDate);
                     AsyncStorage.setItem(chosenDate, JSON.stringify(this.state.items[chosenDate]));
                 })
             }

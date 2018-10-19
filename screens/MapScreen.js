@@ -46,7 +46,6 @@ export default class MapScreen extends Component {
 
     handleBomSnus(chosenDate, snusType, antallSnus, name) {
         let date = chosenDate.toLocaleDateString();
-        console.log('date', date);
         const year = Platform.OS === 'android' ? "20" + date.slice(6) : date.slice(6);
         const month = Platform.OS === 'android' ? date.slice(0,2) : date.slice(3,5);
         const day = Platform.OS === 'android' ? date.slice(3,5) : date.slice(0,2);
