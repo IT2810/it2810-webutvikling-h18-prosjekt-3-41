@@ -1,4 +1,34 @@
-### Navigation
+## Intro - Oscar og Martin
+- Hva er snusbrothers og hvor er inspirasjonen fra
+
+
+
+
+
+## Expo - Kristoffer
+- Skriv noe om hvordan prosjektet er satt om med Expo
+
+
+
+
+
+
+
+## Tredjeparts
+Oppgave
+- Dokumentasjonen skal diskutere, forklare og vise til alle de viktigste valgene og 
+løsningene som gruppa gjør (inklusive valg av komponenter og api).
+- Gruppas valg av teknologi som utforskes (jmfr krav til innhold) skal dokumenteres i 
+tutorials form slik at andre lett kan lære av eksempelet dere lager (dvs. gi en liten 
+introduksjon til hva og hvordan).
+
+
+
+
+
+
+
+### Navigation - Kristoffer
 Mobile apps are rarely made up of a single screen. Snusbrother is no
 exception. To manage the presentation of, and transition between,
 multiple screens we have used React Navigation which is a standard
@@ -25,7 +55,24 @@ export default createBottomTabNavigator ({
 
 Documentation: https://reactnavigation.org/
 
-### Calendar
+
+
+
+
+
+
+
+### Map - Oscar og Martin
+Her må vi skrive noe om hvorfor og hvordan vi bruker react-native-map
+
+
+
+
+
+
+
+
+### Calendar - Kristoffer
 For the CalenderScreen we choose to use React Native Calendars 
 which is an easy to use module that includes various customizable react 
 native calendar components. Snusbrothers are suppose to see
@@ -37,3 +84,15 @@ we can view the appointments. We are able to customize it a lot. We can make cus
 items in the agenda and change the theme as we want easily.
 
 Documentation: https://github.com/wix/react-native-calendars 
+
+
+
+
+
+
+
+
+
+## Testing - Alle
+### Jest
+Her må vi dokumentere testing vår
