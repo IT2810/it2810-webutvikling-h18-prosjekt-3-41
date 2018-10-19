@@ -96,9 +96,9 @@ Her må vi skrive noe om hvorfor og hvordan vi bruker react-native-map
 
 
 ### Calendar - Kristoffer
-For the CalenderScreen we choose to use React Native Calendars 
+For the AgendaScreen we choose to use React Native Calendars 
 which is an easy to use module that includes various customizable react 
-native calendar components. Snusbrothers are suppose to see
+native calendar components. SnusBrothers are suppose to see
 their appointments here so they have no trouble in scheduling
 their snus-use.   
 
@@ -106,12 +106,51 @@ The Agenda component had everything we wanted. It had an calendar and a screen w
 we can view the appointments. We are able to customize it a lot. We can make customized
 items in the agenda and change the theme as we want easily.
 
-Documentation: https://github.com/wix/react-native-calendars 
+Let us take a look at how we implemented the AgendaScreen.
+
+```javascript
+<Agenda
+        // A week start from Monday(1)
+        firstDay={1}
+        // See example of item structure over
+        items={this.state.addedItems}
+        // Callback that gets called when items for a certain month should be loaded (month became visible)
+        loadItemsForMonth={this.loadItems.bind(this)}
+        // Selected date on startup - Should me today
+        selected={new Date()}
+        // Specify how each item should be rendered in agenda
+        renderItem={this.renderItem.bind(this)}
+        // Specify how empty date content with no items should be rendered
+        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        // Specify your item comparison function for increased performance
+        rowHasChanged={this.rowHasChanged.bind(this)}
+        // Specify theme properties to override specific styles for calendar parts. Default = {}
+        theme={{
+            selectedDayBackgroundColor: "lightblue",
+            agendaDayTextColor: 'black',
+            agendaDayNumColor: 'lightblue',
+            agendaTodayColor: 'red',
+            agendaKnobColor: 'lightblue',
+            todayTextColor: 'red',
+        }}
+    />
+```
+We are just taking use of some of the customizable settings for the Agenda. In their
+documentation on https://github.com/wix/react-native-calendars  you can read much more about
+what you can customize here. The most important to look at here are how we give the 
+component our items, how we load items for each month at the time depending on where 
+the user are looking and how these items should be rendered. 
+
+All the items we show in are Agenda are being saved with AsyncStorage which we are going 
+write more about afterwards. 
 
 
 
 
 
+
+
+## AsyncStorage - Martin
 
 
 
