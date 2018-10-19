@@ -10,7 +10,7 @@ export default class AgendaScreen extends Component {
     };
 
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             items: {},
             addedItems: {}
@@ -51,32 +51,27 @@ export default class AgendaScreen extends Component {
 
     componentDidMount() {
         let appointments = {};
-        AsyncStorage.getAllKeys().then(items => {
-            if((items.length === 1 && items[0] === 'brothers') || items.length === 0){
-                let file = require('../assets/appointments');
-                Object.keys(file).forEach(key => {
-                    appointments[key] = file[key]
-                    AsyncStorage.setItem(key, JSON.stringify(appointments[key]));
-                })
-            }else{
-                items.map(key => {
-                    if(key === 'brothers'){
+        AsyncStorage.getAllKeys((err, keys) => {
+            AsyncStorage.multiGet(keys, (err, stores) => {
+
+                stores.map((result, i, store) => {
+                    if (store[i][0] === 'brothers') {
                         return
                     }
-                    console.log(key);
-                    AsyncStorage.getItem(key, (err, result) => {
-                        appointments[key] = result
-                        console.log(appointments[key])
+                    console.log(JSON.parse(store[i][1]));
+                    appointments[store[i][0]] = JSON.parse(store[i][1])
+                });
+                if(Object.keys(appointments).length === 0){
+                    let file = require('../assets/appointments');
+                    Object.keys(file).forEach(key => {
+                        appointments[key] = file[key]
+                        AsyncStorage.setItem(key, JSON.stringify(appointments[key]));
                     })
+                }
+                this.setState({
+                    items: appointments
                 })
-                console.log(appointments);
-            }
-        }).then(() => {
-            this.setState({
-                items: appointments
-            }, () => {
-                console.log('state', this.state.items);
-            });
+            })
         })
     }
 
@@ -93,7 +88,7 @@ export default class AgendaScreen extends Component {
     }
 
     // On bomSnus from MapScreen, this happens. TODO: Add new appointment to this state
-    /*componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps){
         const { navigation } = this.props;
         const appointmentId = navigation.getParam("appointmentId", "fallback");
         const chosenDate = navigation.getParam("chosenDate", "fallback");
@@ -120,7 +115,7 @@ export default class AgendaScreen extends Component {
                 this.setState({
                     items: newItems
                 }, () => {
-                    AsyncStorage.setItem(chosenDate, JSON.stringify(newItems[chosenDate]))
+                    AsyncStorage.setItem(chosenDate, JSON.stringify(newItems[chosenDate]));
                 })
             }
             else {
@@ -135,15 +130,16 @@ export default class AgendaScreen extends Component {
                 console.log(newItems);
                 this.setState({
                     items: newItems
+                }, () => {
+                    AsyncStorage.removeItem(chosenDate)
+                    AsyncStorage.setItem(chosenDate, JSON.stringify(this.state.items[chosenDate]));
                 })
-
             }
-
         }
 
 
 
-    }*/
+    }
 
 
     // Loads random items for the agenda.
